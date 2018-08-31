@@ -1,3 +1,19 @@
-.porcentaje {
-height:auto;
+body{
+  background-color: #2B7696;
+}
+.porcentaje{
+  height:150px !important;
+  width: 285px !important;
+}
+.card{
+  margin-bottom: 5px;
+}
+.myColorNav{
+  background-color: #E4DCC1;
+}
+.myFooter{
+  text-align: center;
+}
+.imgCarrousel{
+  background-color: black;
 }
