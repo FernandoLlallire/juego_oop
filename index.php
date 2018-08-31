@@ -11,6 +11,7 @@
   <?php require_once 'header.php'; ?>
   <br>
   <br>
+<h1 class="mainTitle">¡Superá tus metas jugando!</h1>
   <article class="container">
     <div class="row">
       <div class="col-sm">
@@ -68,18 +69,19 @@
   <br>
   <div class="card">
     <div class="card-header">
-      Quote
+      Mirá lo que opinan de nuestro juego:
     </div>
     <div class="card-body">
       <blockquote class="blockquote mb-0">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-        <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+        <p>¡Logré todo lo que quise en la vida!</p>
+        <footer class="blockquote-footer">Batman Roberto <cite title="Source Title">Digital House</cite></footer>
       </blockquote>
     </div>
   </div>
   <?php require_once 'footer.php';?>
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-  <script src="" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  <!-- Librería de jQuery -->
+   <script src="js/jquery-3.3.1.min.js"></script>
+   <!-- Librería de JS de Bootstrap -->
+   <script src="js/bootstrap.min.js"></script>
 </body>
 </html>
