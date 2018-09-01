@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="css/bootstrap.css">
-  <link rel="stylesheet" href="css/style.css">
-  <title>Juego</title>
-</head>
-<body>
+
   <?php require_once 'header.php'; ?>
   <br>
   <br>
@@ -79,9 +70,3 @@
     </div>
   </div>
   <?php require_once 'footer.php';?>
-  <!-- Librería de jQuery -->
-   <script src="js/jquery-3.3.1.min.js"></script>
-   <!-- Librería de JS de Bootstrap -->
-   <script src="js/bootstrap.min.js"></script>
-</body>
-</html>
