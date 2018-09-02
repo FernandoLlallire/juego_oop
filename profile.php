@@ -9,29 +9,29 @@
 
                   </div>
                   <div class="avatar">
-                      <img alt="" src="http://lorempixel.com/100/100/people/9/"> <!-- cambiar foto-->
+                      <img alt="" src="images/user.png">
                   </div>
                   <div class="info">
                       <div class="title">
-                          <a target="_blank" href="https://scripteden.com/">Mariano</a> <!--cambiar link-->
+                          <a target="_blank">Mariano</a>
                       </div>
                       <div class="desc">Diseñador gráfico</div>
                       <div class="desc">Futbolista amateur</div>
                       <div class="desc">Carpintero por hobbie</div>
                   </div>
                   <div class="bottom">
-                      <a class="btn btn-primary btn-twitter btn-sm" href="https://twitter.com/webmaniac">
+                      <a class="btn btn-primary btn-twitter btn-sm" href="">
                           <i class="fa fa-twitter"></i>
                       </a>
                       <a class="btn btn-danger btn-sm" rel="publisher"
-                         href="https://plus.google.com/+ahmshahnuralam">
+                         href="">
                           <i class="fa fa-google-plus"></i>
                       </a>
                       <a class="btn btn-primary btn-sm" rel="publisher"
-                         href="https://plus.google.com/shahnuralam">
+                         href="">
                           <i class="fa fa-facebook"></i>
                       </a>
-                      <a class="btn btn-warning btn-sm" rel="publisher" href="https://plus.google.com/shahnuralam">
+                      <a class="btn btn-warning btn-sm" rel="publisher" href="">
                           <i class="fa fa-behance"></i>
                       </a>
                   </div>
@@ -64,7 +64,7 @@
   					<i class="glyphicon glyphicon-download"></i>
   				</div>
   				<div class="dash-box-body">
-  					<span class="dash-box-count">10</span>
+  					<span class="dash-box-count">3</span>
   					<span class="dash-box-title">Challenge actuales</span>
   				</div>
 
@@ -79,7 +79,7 @@
   					<i class="glyphicon glyphicon-heart"></i>
   				</div>
   				<div class="dash-box-body">
-  					<span class="dash-box-count">100 KM</span>
+  					<span class="dash-box-count">30 días sin fumar</span>
   					<span class="dash-box-title">¡Mayor logro de tu mes!</span>
   				</div>
 
@@ -90,7 +90,52 @@
   		</div>
   	</div>
   </div>
-
+<br>
+<br>
+<div class="container">
+    <h2>Tus challenges</h2>
+	<div class="row">
+		<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+						<div class="our-services-wrapper mb-60">
+							<div class="services-inner">
+								<div class="our-services-img">
+                  <a href="images/agua.png" width="68px"></a>
+								</div>
+								<div class="our-services-text">
+									<h4>Tomar agua</h4>
+									<p>Tomar 2 litros de agua por día</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+						<div class="our-services-wrapper mb-60">
+							<div class="services-inner">
+								<div class="our-services-img">
+								<img src="images/cigarrillo.png" width="68px" alt="">
+								</div>
+								<div class="our-services-text">
+									<h4>Dejar de fumar</h4>
+									<p>30 días sin fumar</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+						<div class="our-services-wrapper mb-60">
+							<div class="services-inner">
+								<div class="our-services-img">
+								<img src="images/manzana.png" width="68px" alt="">
+								</div>
+								<div class="our-services-text">
+									<h4>Comer sano</h4>
+									<p>15 días de comidas sanas</p>
+								</div>
+							</div>
+						</div>
+					</div>
+	</div>
+</div>
 
 
   <?php require_once 'footer.php';?>
