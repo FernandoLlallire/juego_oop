@@ -5,20 +5,24 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style-fer.css">
+    <link rel="stylesheet" href="css/style.css">
       <meta name="viewport" content="width=device-width, initial-scale=1">
     <title></title>
   </head>
   <body>
-    <div class="navbar-wrapper">
-      <nav class="container-fluid">
-
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <!-- <a class="navbar-brand" href="#">Proyect</a>
+    <!-- <div class="container"> esto lo puse por el tema del footer? -->
+<nav class="navbar navbar-light fixed-top navbar-expand-md" style="background-color: #9D45A3;">
+   <a class="navbar-brand mr-auto m" href="index.php">
+     <!-- <img src="images/if_sloth_3406421.png" width="30" height="30" alt=""> Aca tendria que ir el logo-->
+     BrandName
+   </a>
+  </button>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
-  </button> A definir cuando tengamos el icono y nombre-->
+  </button>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
+    <ul class="navbar-nav  ml-auto " >
       <?php
       $navBar = [
         "Home" => "index.php",
@@ -28,13 +32,11 @@
         "Perfil" => "perfil.php",
       ];
       foreach ($navBar as $opcion => $url) {
-        echo "<li class=\"nav-item active\">";
-        echo "<a class='navbar navbar-expand-lg nav-pills nav-justified myColorNav' href=$url>$opcion</a>";
+        echo "<li class=\"nav-item active\" >";
+        echo "<a class='nav-link' href=$url>$opcion</a>";
         echo "</li>";
       }
       ?>
     </ul>
   </div>
 </nav>
-      </nav>
-    </div>

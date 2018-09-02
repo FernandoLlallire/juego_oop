@@ -1,0 +1,15 @@
+.myNavBar{
+  background-color: #e3f2fd !important;
+  /*color: #ffffff!important;*/
+  /*Aca lo que tenemos que hacer es usar flex en vez del bootstrap para poder editar el color
+  a cualquiera por ahora se deje la edicion desde html pero la idea es hacerlo desde css*/
+}
+.myItemsNavBar{
+    flex-direction: row-reverse;
+}
+.collapse ul li a{
+  color:white!important;
+}
+footer{
+  align-items: flex-end;
+}

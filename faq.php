@@ -1,14 +1,7 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/style.css">
-  <script src="js/bootstrap.min.js"></script>
-  <title>Preguntas frecuentes</title>
-</head>
-<body>
+<br>
+<br>
+<br>
+<br>
   <?php require_once 'header.php'; ?>
   <div class="accordion" id="accordionExample">
   <div class="card">
@@ -19,7 +12,7 @@
         </button>
       </h5>
     </div>
-    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+    <div id="collapseOne" class="collapse " aria-labelledby="headingOne" data-parent="#accordionExample">
       <div class="card-body">
         Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
       </div>
@@ -54,10 +47,17 @@
     </div>
   </div>
 </div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
   <?php require_once 'footer.php';?>
-  <!-- Librería de jQuery -->
-   <script src="js/jquery-3.3.1.min.js"></script>
-   <!-- Librería de JS de Bootstrap -->
-    <script src="js/bootstrap.min.js"></script>
-</body>
-</html>
