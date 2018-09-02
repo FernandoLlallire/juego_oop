@@ -1,0 +1,68 @@
+body{
+  background-color: #D0599F !important;
+}
+.porcentaje{
+  height:150px !important;
+  width: 285px !important;
+}
+.card{
+  margin-bottom: 5px;
+}
+.myColorNav{
+  background-color: #E4DCC1;
+}
+.myFooter{
+  text-align: center;
+}
+.imgCarrousel{
+  background-color: black;
+}
+.myAccordion{
+  background-color: #9D45A3;
+}
+.accordionFAQ{
+  color: #E4DCD1;
+}
+.colorgraph {
+  height: 5px;
+  border-top: 0;
+  background: #c4e17f;
+  border-radius: 5px;
+  background-image: -webkit-linear-gradient(left, blue, red 25%, yellow 25%, black 25%, green 25%);
+  background-image: -moz-linear-gradient(left, blue, red 25%, yellow 25%, black 25%, green 25%);
+  background-image: -o-linear-gradient(left, blue, red 25%, yellow 25%, black 25%, green 25%);
+  background-image: linear-gradient(to right, blue, red 25%, yellow 25%, black 25%, green 25%);
+}
+.login{
+  margin: 5px 0;
+}
+.register{
+  margin: 5px 0;
+}
+.btnLLogin input{
+  color: #fff;
+  background-color: #40D5E8;//Paleta de colores delphi;
+  border-color: #9D45A3;//Paleta de colores delphi;
+}
+.btnLRegister input{
+  color: #fff;
+  background-color: #3442C0;  //Paleta de colores delphi;
+  border-color: #9D45A3;/Paleta de colores delphi;
+}
+.btnRLogin a{
+  color: #fff;
+  background-color: #40D5E8;//Paleta de colores delphi;
+  border-color: #9D45A3;//Paleta de colores delphi;
+}
+.btnRRegister a{
+  color: #fff;
+  background-color: #3442C0;  //Paleta de colores delphi;
+  border-color: #9D45A3;/Paleta de colores delphi;
+}
+.formulario{
+  color: #FFF;
+  /*font-family: 'Baloo Tammudu', cursive !important;*/
+}
+.formulario input, a{
+  margin-top: 2px;
+}
