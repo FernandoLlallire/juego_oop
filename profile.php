@@ -99,7 +99,7 @@
 						<div class="our-services-wrapper mb-60">
 							<div class="services-inner">
 								<div class="our-services-img">
-                  <a href="images/agua.png" width="68px"></a>
+                  <img src="images/agua.png" width="68px" alt="agua">
 								</div>
 								<div class="our-services-text">
 									<h4>Tomar agua</h4>

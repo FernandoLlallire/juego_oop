@@ -1,5 +1,6 @@
     <footer class="myFooter">
-      <p>Derechos reservados</p>
+        <p>©Derechos reservados 2018 - Proyecto Juego de Habitos</p>
+        <p>Delfina De Los Santos - Fernando Llallire - Omar Gonzalez</p>
     </footer>
     <!-- Librería de jQuery -->
      <script src="js/jquery-3.3.1.min.js"></script>

@@ -1,15 +1,35 @@
-.myNavBar{
+.myNavBar {
   background-color: #e3f2fd !important;
   /*color: #ffffff!important;*/
   /*Aca lo que tenemos que hacer es usar flex en vez del bootstrap para poder editar el color
   a cualquiera por ahora se deje la edicion desde html pero la idea es hacerlo desde css*/
 }
-.myItemsNavBar{
+.myItemsNavBar {
     flex-direction: row-reverse;
 }
-.collapse ul li a{
+.collapse ul li a {
   color:white!important;
 }
-footer{
-  align-items: flex-end;
+ .myFooter {
+  position: relative;
+  width: 100%;
+  bottom: 0px;
+  padding-bottom: .3em;
+  padding-top: 1em;
+  background-color: #9D45A3;
+  line-height: 0;
 }
+.myFooter p {
+text-align: center;
+color: #FFF;
+}
+body {
+  position: relative;
+}
+.myBtn{
+  width: 100%;
+}
+/* .myBtn:hover{
+  text-decoration: none;
+  color: black;
+} Revisar por que deja el underline despues de abirlo seguro es js*/

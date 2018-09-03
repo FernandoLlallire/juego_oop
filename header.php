@@ -5,6 +5,8 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style-omar.css">
+    <link rel="stylesheet" href="css/style-delfi.css">
     <link rel="stylesheet" href="css/style-fer.css">
     <link rel="stylesheet" href="css/style.css">
       <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,10 +28,10 @@
       <?php
       $navBar = [
         "Home" => "index.php",
-        "Registro" => "registro.php",
+        "Registro" => "register.php",
         "Login" => "login.php",
         "Preguntas frecuentes" => "faq.php",
-        "Perfil" => "perfil.php",
+        "Perfil" => "profile.php",
       ];
       foreach ($navBar as $opcion => $url) {
         echo "<li class=\"nav-item active\" >";
