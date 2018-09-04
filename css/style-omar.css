@@ -1,8 +1,13 @@
 body{
   background-color: #D0599F !important;
+  /* font-family: 'Baloo Tammudu', cursive; */
+}
+.container{
+  display: flex;
+  justify-content: center;
 }
 .porcentaje{
-  height:150px !important;
+  height: 150px !important;
   width: 285px !important;
 }
 .card{
@@ -47,12 +52,12 @@ body{
 .btnLRegister input{
   color: #fff;
   background-color: #3442C0;  //Paleta de colores delphi;
-  border-color: #9D45A3;/Paleta de colores delphi;
+  border-color: #FFF;/Paleta de colores delphi;
 }
 .btnRLogin a{
   color: #fff;
   background-color: #40D5E8;//Paleta de colores delphi;
-  border-color: #9D45A3;//Paleta de colores delphi;
+  border-color: #FFF;//Paleta de colores delphi;
 }
 .btnRRegister a{
   color: #fff;
