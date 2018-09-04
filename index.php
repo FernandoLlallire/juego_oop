@@ -15,7 +15,7 @@
   <article>
     <div class="row">
       <div class="col-xs-12 col-sm-4">
-        <div class="card" style="width: 18rem;">
+        <div class="card background-card" style="width: 18rem;">
           <img class="card-img-top img-fluid porcentaje" src="images/cafe.png" alt="Card image cap">
           <div class="card-body">
             <p class="card-text">¡Decidite a tomar menos café!</p>
@@ -23,7 +23,7 @@
         </div>
       </div>
       <div class="col-xs-12 col-sm-4">
-        <div class="card" style="width: 18rem;">
+        <div class="card background-card" style="width: 18rem;">
           <img class="card-img-top img-fluid porcentaje" src="images/cigarrillo.png" alt="Card image cap">
           <div class="card-body">
             <p class="card-text">¡Dejá de fumar y ganá puntos!</p>
@@ -31,7 +31,7 @@
         </div>
       </div>
       <div class="col-xs-12 col-sm-4">
-        <div class="card" style="width: 18rem;">
+        <div class="card background-card" style="width: 18rem;">
           <img class="card-img-top img-fluid porcentaje" src="images/agua.png" alt="Card image cap">
           <div class="card-body">
             <p class="card-text">¡Tomá agua y convertite en héroe!</p>
@@ -94,10 +94,10 @@
   <br>
   <br>
   <div class="card">
-    <div class="card-header">
+    <div class="card-header header-quote-card">
       Mirá lo que opinan de nuestro juego:
     </div>
-    <div class="card-body">
+    <div class="card-body card-quote-color">
       <blockquote class="blockquote mb-0">
         <p>¡Logré todo lo que quise en la vida!</p>
         <footer class="blockquote-footer">Batman Roberto <cite title="Source Title">Digital House</cite></footer>

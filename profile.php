@@ -96,12 +96,12 @@
     <h2>Tus challenges</h2>
 	<div class="row">
 		<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
-						<div class="our-services-wrapper mb-60">
-							<div class="services-inner">
-								<div class="our-services-img">
+						<div class="card-profile-wrapper mb-60">
+							<div class="card-profile-inner">
+								<div class="card-img">
                   <img src="images/agua.png" width="68px" alt="agua">
 								</div>
-								<div class="our-services-text">
+								<div class="profile-card-text">
 									<h4>Tomar agua</h4>
 									<p>Tomar 2 litros de agua por día</p>
 								</div>
@@ -109,12 +109,12 @@
 						</div>
 					</div>
 					<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
-						<div class="our-services-wrapper mb-60">
-							<div class="services-inner">
-								<div class="our-services-img">
+						<div class="card-profile-wrapper mb-60">
+							<div class="card-profile-inner">
+								<div class="card-img">
 								<img src="images/cigarrillo.png" width="68px" alt="">
 								</div>
-								<div class="our-services-text">
+								<div class="profile-card-text">
 									<h4>Dejar de fumar</h4>
 									<p>30 días sin fumar</p>
 								</div>
@@ -122,12 +122,12 @@
 						</div>
 					</div>
 					<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
-						<div class="our-services-wrapper mb-60">
-							<div class="services-inner">
-								<div class="our-services-img">
+						<div class="card-profile-wrapper mb-60">
+							<div class="card-profile-inner">
+								<div class="card-img">
 								<img src="images/manzana.png" width="68px" alt="">
 								</div>
-								<div class="our-services-text">
+								<div class="profile-card-text">
 									<h4>Comer sano</h4>
 									<p>15 días de comidas sanas</p>
 								</div>

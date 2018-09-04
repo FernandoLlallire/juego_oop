@@ -1,5 +1,5 @@
 body{
-  background-color: #D0599F !important;
+  background-color: #7768AE !important;
 }
 .porcentaje{
   height:150px !important;
@@ -9,10 +9,22 @@ body{
   margin-bottom: 5px;
 }
 .myColorNav{
-  background-color: #E4DCC1;
+  background-color: #4D9DE0;
 }
 .myFooter{
   text-align: center;
+}
+.colorFooter{
+  background-color: #4D9DE0;
+}
+.background-card{
+  background-image: linear-gradient(to right top, #4d9de0, #00a8da, #00afc3, #00b29e, #3bb273);
+}
+.card-quote-color{
+  background-image: linear-gradient(to right top, #f6828c, #ea6a72, #dc5058, #cd353e, #bc0d24);
+}
+.header-quote-card{
+  background-image: linear-gradient(to right top, #4d9de0, #00a8da, #00afc3, #00b29e, #3bb273);
 }
 .imgCarrousel{
   background-color: black;

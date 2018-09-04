@@ -31,7 +31,7 @@
 <br>
 <br>
     <p>Paleta de colores vibrante:</p>
-    <img src="![Alt text](relative/images/paletacolores.png?raw=true "Title")" alt="paleta de colores">
+    <img src="images/paleta-de-colores.png" alt="paleta de colores">
 
 
 
