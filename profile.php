@@ -98,7 +98,7 @@
 		<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
 						<div class="card-profile-wrapper mb-60">
 							<div class="card-profile-inner">
-								<div class="card-img">
+								<div class="card-challenge-img">
                   <img src="images/agua.png" width="68px" alt="agua">
 								</div>
 								<div class="profile-card-text">
@@ -111,7 +111,7 @@
 					<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
 						<div class="card-profile-wrapper mb-60">
 							<div class="card-profile-inner">
-								<div class="card-img">
+								<div class="card-challenge-img">
 								<img src="images/cigarrillo.png" width="68px" alt="">
 								</div>
 								<div class="profile-card-text">
@@ -124,7 +124,7 @@
 					<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
 						<div class="card-profile-wrapper mb-60">
 							<div class="card-profile-inner">
-								<div class="card-img">
+								<div class="card-challenge-img">
 								<img src="images/manzana.png" width="68px" alt="">
 								</div>
 								<div class="profile-card-text">

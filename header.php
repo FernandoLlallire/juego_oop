@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style-omar.css">
+    <!-- <link rel="stylesheet" href="css/style-omar.css"> -->
     <link rel="stylesheet" href="css/style-delfi.css">
     <link rel="stylesheet" href="css/style-fer.css">
     <link rel="stylesheet" href="css/style.css">
