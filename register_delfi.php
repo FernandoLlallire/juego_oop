@@ -1,5 +1,5 @@
 <?php
-
+  require_once 'header.php';
 
   $userName = isset ($_POST['userName']) ? trim ($_POST['userName']) : '';
   $userEmail = isset ($_POST['userEmail']) ? trim ($_POST['userEmail']) : '';
@@ -20,32 +20,64 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Formulario</title>
+    <title>Formulario de registro al juego</title>
   </head>
   <body>
     <form class="" action="register.php" method="post">
-      <label for="">Nombre:</label>
-      <input type="text" name="userName" value="<?= $userName ?>">
-      <br>
-      <label for="">Email:</label>
-      <input type="text" name="userEmail" value="<?= $userEmail ?>">
-      <br>
-      <select class="" name="userCountry">
-        <?php foreach ($countries as $code => $country): ?>
-										<option <?= $code == $userCountry ? 'selected' : '' ?>
-										value="<?= $code ?>"><?= $country ?></option>
-				<?php endforeach; ?>
-      </select>
-      <br>
-      <label for="">Contraseña:</label>
-      <input type="text" name="userPassword" value="">
-      <br>
-      <label for="">Repetir contraseña:</label>
-      <input type="text" name="userRePassword" value="">
-      <button type="submit" name="button">Enviar</button>
+      <div class="container register">
+                <div class="row">
+                    <div class="col-md-3 register-left">
+                        <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt=""/>
+                        <h3>¡Bienvenido!</h3>
+                        <p>Estás a un paso de empezar a jugar</p>
+                        <input type="submit" name="" value="Login"/><br/>
+                    </div>
+                    <div class="col-md-9 register-right">
+
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <h3 class="register-heading">Registrate</h3>
+                                <div class="row register-form">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Nombre *" value="<?= $userName ?>" />
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" class="form-control" placeholder="Password *" value="" />
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" class="form-control"  placeholder="Repetir contraseña *" value="" />
+                                        </div>
+                                       </div>
+                                       <div class="form-group">
+                                            <select class="form-control" name="userCountry">
+                                                <option class="hidden"  selected disabled>Seleccioná tu país</option>
+                                                <?php foreach ($countries as $code => $country): ?>
+                                        										<option <?= $code == $userCountry ? 'selected' : '' ?>
+                                        										value="<?= $code ?>"><?= $country ?></option>
+                                        				<?php endforeach; ?>
+                                            </select>
+                                      </div>
+                                      <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input type="email" class="form-control" placeholder="Email *" value="<?= $userEmail ?>" />
+                                        </div>
+                                        <input type="submit" class="btnRegister"  value="Register"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
 
 
     </form>
 
   </body>
 </html>
+<?php require_once 'footer.php';?>
