@@ -19,7 +19,7 @@ define("EMPTY_PASSWORD", "Complete las contraseñas");
 define("DIFERENT_PASSWORD", "Las contraseñas tienen que coincidir");
 define("MIN_PASSWORD_LENGTH", "Las contraseñas tienen que tener como minimo 6 caracteres")
 define('VALID_EXTENSION', ['jpg', 'png', 'jpeg', 'gif', 'svg']);
-
+define("EXISTING_USERNAME", "El usuario ya esta registrado")
 $forbidden_chars= [ "?",
                     "[",
                     "]",
@@ -67,26 +67,49 @@ function sanitizateAndValidateData($post,$file){
   $errors = [];
   $archivo = $file["file"];
   empty($post["name"]) ? $errors["name"] = EMPTY_NAME : ( invalidChar(trim($post["name"])) ? $errors["name"] = INVALID_NAME : "" );
-  empty($post["userName"]) ? $errors["userName"] = EMPTY_USERNAME : ( invalidChar(trim($post["userName"])) ? $errors["userName"] = INVALID_USERNAME : "" );
+  //empty($post["userName"]) ? $errors["userName"] = EMPTY_USERNAME : ( invalidChar(trim($post["userName"])) ? $errors["userName"] = INVALID_USERNAME : (IsRegister($post["userName"], "userName") ? $errors["userName"]= EXISTING_USERNAME : "") ); es demasiado villa se saca
+
+  if (empty($post["userName"])){
+    $errors["userName"] = EMPTY_USERNAME;
+  }elseif (invalidChar(trim($post["userName"]))) {
+    $errors["userName"] = INVALID_USERNAME;
+  }elseif (IsRegister($post["userName"], "userName")) {
+    $errors["userName"]= EXISTING_USERNAME;
+  }
+
   empty($post["country"]) ? $errors["country"] = EMPTY_COUNTRY : "";
   if($archivo["error"] !== UPLOAD_ERR_OK){
     $errors["file"] = EMPTY_FILE;
   } elseif ( !in_array ( pathinfo($archivo['name'], PATHINFO_EXTENSION), VALID_EXTENSION ) ) {
     $errors["file"] = EXTENSION_FILE_ERROR;
   }
+
   if(empty($post["email"])){
     $errors["email"] = EMPTY_MAIL;
   } elseif (!filter_var($post["email"], FILTER_VALIDATE_EMAIL)) {
     $errors["email"] = INVALID_MAIL;
-  } elseif (MailIsRegister($post["email"])) {
+  } elseif (IsRegister($post["email"],"mail")) {
     $errors["email"] = EXISTING_MAIL;
   }
+
   if ( empty($post["password"]) || empty($post["confirmPassword"]) ) {
     $errors['password'] = EMPTY_PASSWORD;
-  } elseif ( $post["password"] !== empty($post["confirmPassword"]) {
+  } elseif ( $post["password"] !== empty($post["confirmPassword"]) { //stackoverflow aconseja que usemos el tipo de comparacion sin el tipo. y no el strcmp por ese tiene mas tiempo de ejecucion
     $errors['password'] = DIFERENT_PASSWORD;
   } elseif ( strlen($post["password") < 6 || strlen($post["confirmPassword"]) < 6 ) {
     $errors['password'] = 'La contraseña debe tener más de 4 caracteres';
   }
 }
+
+function IsRegister ($mail, $field) {
+  $allUsers = getAllUsers();//aca allUsers es una matriz en la que tenemos todo separado por los
+  $return = FALSE;
+  foreach ($allUsers[$field] as $registerMail) {
+    if ($registerMail === $mail){
+      $return = TRUE;
+    }
+  }
+  return $return;
+}
+
  ?>
