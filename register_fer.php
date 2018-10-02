@@ -5,17 +5,14 @@
 <?php
 if ($_POST) {
   $errors = sanitizateAndValidateData($_POST,$_FILES);
-  // $errors = registerValidate($_POST, $_FILES); // lo hace omar
-
-  if ( count($errors) == 0 ) { // Solo entramos si todo salio bien
-
-    $imageName = saveImage($_FILES['userAvatar']);  //Guardo la imagen
-
-    $_POST['avatar'] = $imageName;
-
+  if ( count($errors) == 0 ) {
+    $imageName = saveImage($_FILES['userAvatar']);
+    $_POST['file'] = $imageName;
     $user = saveUser($_POST);
-
     logIn($user);
+    if ($_POST["saveLogin"]){
+      SaveCookie($user);//por que user ya viene con el id
+    }
   }
 }
 ?>

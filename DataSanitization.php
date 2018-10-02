@@ -47,7 +47,8 @@ $forbidden_chars= [ "?",
                     "}",
                     "%",
                     "+" ];
-/*we allow the following special characters but no the ones in $forbidden_chars*/
+/*we allow the following special characters but no the ones in $forbidden_chars.
+the value by default is false if everything  is ok.*/
 function invalidChar($data){
   global $forbidden_chars;
   $return = FALSE;
@@ -99,6 +100,7 @@ function sanitizateAndValidateData($post,$file){
   } elseif ( strlen($post["password") < 6 || strlen($post["confirmPassword"]) < 6 ) {
     $errors['password'] = 'La contraseña debe tener más de 4 caracteres';
   }
+  return $errors;
 }
 
 function IsRegister ($mail, $field) {
