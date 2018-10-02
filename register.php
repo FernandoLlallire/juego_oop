@@ -1,6 +1,13 @@
 <?php
   require_once 'header.php';
-  require_once 'data_sanitization.php';
+  require_once 'DataSanitization.php';
+  require_once 'DataUpload.php';
+
+//Pendiente la comunicación de la DB con la función isLogged
+  // if ( isLogged() ) {
+  // header('location: profile.php');
+  // exit;
+  // }
 
   $userName = isset ($_POST['userName']) ? trim ($_POST['userName']) : '';
   $userSurname = isset ($_POST['userSurname']) ? trim ($_POST['userSurname']) : '';
@@ -25,7 +32,7 @@ if ($_POST) {
   <section class="container cont-Register">
     <div class="row register">
       <div class="col-xs-12 col-sm-12 col-md-12 col-sm-offset-2 col-md-offset-3">
-        <form role="form" action="register.php" class="formulario" method="post">
+        <form role="form" action="register.php" class="formulario" method="post" enctype="multipart/form-data">
           <h1>Registrate</h1>
           <div class="row">
             <div class="col-xs-12 col-sm-6 col-md-6">
@@ -94,14 +101,14 @@ if ($_POST) {
                                 <option <?= $code == $userCountry ? 'selected' : '' ?>
                                 value="<?= $code ?>"><?= $country ?></option>
                     <?php endforeach; ?>
-                    <?php if (isset($errors['userCountry'])): ?>
-                      <div class="invalid-feedback">
-                        <?= $errors['userCountry'] ?>
-                      </div>
-                    <?php endif; ?>
+
                 </select>
               </div>
             </div>
+          </div>
+          <div class="">
+            <label for="file">Archivo</label>
+            <input type="file" name="file" ><br>
           </div>
           <div class="row">
             <div class="col-xs-12 col-md-12 register btnRRegister">
@@ -115,5 +122,6 @@ if ($_POST) {
         </form>
       </div>
     </div>
+
   </section>
   <?php require_once 'footer.php'; ?>

@@ -41,7 +41,8 @@ return $dataSanitizate;
 }
 function sanitizateAndValidateData($post,$file){
   $errors = [];
-  $archivo = $file["imagen"];
+ $archivo = (isset($file["imagen"]) ? $file["imagen"] : "");
+
   empty($post["userName"]) ? $errors["userName"] = EMPTY_NAME : ( invalidChar(trim($post["userName"])) ? $errors["userName"] = INVALID_NAME : "" );
   //empty($post["userName"]) ? $errors["userName"] = EMPTY_USERNAME : ( invalidChar(trim($post["userName"])) ? $errors["userName"] = INVALID_USERNAME : (IsRegister($post["userName"], "userName") ? $errors["userName"]= EXISTING_USERNAME : "") ); es demasiado complejo de leer se cambia
 empty($post["userSurname"]) ? $errors["userSurname"] = EMPTY_SURNAME : ( invalidChar(trim($post["userSurname"])) ? $errors["userSurname"] = INVALID_NAME : "" );
@@ -53,12 +54,12 @@ empty($post["userSurname"]) ? $errors["userSurname"] = EMPTY_SURNAME : ( invalid
     $errors["userNickname"]= EXISTING_USERNAME;
   }
   empty($post["UserCountry"]) ? $errors["userCountry"] = EMPTY_COUNTRY : "";
+// if (isset($archivo)) {if($archivo["error"] !== UPLOAD_ERR_OK){
+//    $errors["imagen"] = EMPTY_FILE;
+//  } elseif ( !in_array ( pathinfo($archivo['name'], PATHINFO_EXTENSION), VALID_EXTENSION ) ) {/*pathinfo junto con PATHINFO_EXTENSION nos devuelve la extension de la imagen q es apuntado en $_FILES[name] y por ultimo con el in_array nos fijamos si esta dentro del array de formatos permitidos.*/
+//    $errors["imagen"] = EXTENSION_FILE_ERROR;
+//  }}
 
-  if($archivo["error"] !== UPLOAD_ERR_OK){
-    $errors["imagen"] = EMPTY_FILE;
-  } elseif ( !in_array ( pathinfo($archivo['name'], PATHINFO_EXTENSION), VALID_EXTENSION ) ) {/*pathinfo junto con PATHINFO_EXTENSION nos devuelve la extension de la imagen q es apuntado en $_FILES[name] y por ultimo con el in_array nos fijamos si esta dentro del array de formatos permitidos.*/
-    $errors["imagen"] = EXTENSION_FILE_ERROR;
-  }
   if(empty($post["userEmail"])){
     $errors["userEmail"] = EMPTY_MAIL;
   } elseif (!filter_var($post["userEmail"], FILTER_VALIDATE_EMAIL)) {

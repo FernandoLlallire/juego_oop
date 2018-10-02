@@ -1,7 +1,7 @@
 <?php
   require_once 'header.php';
-  require_once 'data_sanitization.php';
-
+  require_once 'DataSanitization.php';
+  require_once 'DataUpload.php';
   $userEmail = isset ($_POST['userEmail']) ? trim ($_POST['userEmail']) : '';
 
   if ($_POST) {
