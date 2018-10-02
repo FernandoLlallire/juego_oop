@@ -2,15 +2,17 @@
 <?php require_once "Country.php"?>
 <?php require_once "DataSanitization.php"?>
 <?php require_once "GeneralFunctions.php"?>
+<?php require_once "DataUpload.php"?>
 <?php
+
 if ($_POST) {
   $errors = sanitizateAndValidateData($_POST,$_FILES);
   if ( count($errors) == 0 ) {
-    $imageName = saveImage($_FILES['userAvatar']);
-    $_POST['file'] = $imageName;
-    $user = saveUser($_POST);
-    logIn($user);
-    if ($_POST["saveLogin"]){
+    $imageName = saveImage($_FILES['imagen']);/*$imageName es el nombre del archivo con extension y la modificacion para q no se repitan nombres*/
+    $_POST['imagen'] = $imageName;
+    $arrayUser = saveUser($_POST);
+    logIn($arrayUser);
+    if (isset($_POST["saveLogin"])){/*Aca se revisa si existe la posicion por que el checkbox solo envia el parametro si esta seleccionado. en caso contrario no se agrega el campo en el array $_POST*/
       SaveCookie($user);//por que user ya viene con el id
     }
   }
@@ -24,7 +26,7 @@ if ($_POST) {
     <title>registro</title>
   </head>
   <body>
-    <form action="index.html" method="post" enctype="multipart/form-data">
+    <form  method="post" enctype="multipart/form-data">
       <label for="name">Name</label>
       <input type="text" name="user" ><br>
       <label for="userName">userName</label>
@@ -32,16 +34,17 @@ if ($_POST) {
       <label for="email">email</label>
       <input type="email" name="email" ><br>
       <select name="country">
-      <?php foreach ($countries as $key => $value): ?>
+      <!-- <?php foreach ($countries as $key => $value): ?>
       <option value=<?= $key ?>><?= $value ?></option>
-      <?php endforeach; ?>
+      <?php endforeach; ?> -->
       </select><br>
       <label for="file">archivo</label>
-      <input type="file" name="file" ><br>
+      <input type="file" name="imagen" ><br>
       <label for="password">password</label>
       <input type="password" name="password" ><br>
       <label for="confirmPassword">confirm password</label>
       <input type="password" name="confirmPassword" ><br>
+      <input type="checkbox" name="saveLogin"> <label>Guardar sesion</label>
       <input type="submit"  value="Enviar">
     </form>
   </body>
