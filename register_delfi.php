@@ -23,7 +23,7 @@
     <title>Formulario de registro al juego</title>
   </head>
   <body>
-    <form class="" action="register.php" method="post">
+    <form class="" action="register_delfi.php" method="post">
       <div class="container register">
                 <div class="row">
                     <div class="col-md-3 register-left">
@@ -40,10 +40,10 @@
                                 <div class="row register-form">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Nombre *" value="<?= $userName ?>" />
+                                            <input name="userName" type="text" class="form-control" placeholder="Nombre *" value="<?= $userName ?>" />
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control" placeholder="Password *" value="" />
+                                            <input type="password" class="form-control" placeholder="Contraseña *" value="" />
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control"  placeholder="Repetir contraseña *" value="" />
@@ -60,9 +60,9 @@
                                       </div>
                                       <div class="col-md-6">
                                         <div class="form-group">
-                                            <input type="email" class="form-control" placeholder="Email *" value="<?= $userEmail ?>" />
+                                            <input type="email" name="userEmail" class="form-control" placeholder="Email *" value="<?= $userEmail ?>" />
                                         </div>
-                                        <input type="submit" class="btnRegister"  value="Register"/>
+                                        <input type="submit" class="btnRegister"  value="Registrate"/>
                                     </div>
                                 </div>
                             </div>

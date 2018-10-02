@@ -1,19 +1,41 @@
-  <?php require_once 'header.php'; ?>
+<?php
+  require_once 'header.php';
+  require_once 'data_sanitization.php';
+
+  $userEmail = isset ($_POST['userEmail']) ? trim ($_POST['userEmail']) : '';
+
+  if ($_POST) {
+    $errors = sanitizateAndValidateData($_POST, $_FILES);
+  }
+
+
+
+ ?>
   <section class="container cont-Login">
     <div class="row login">
       <div class="col-xs-12 col-sm-12 col-md-12">
-        <form role="form" class="formulario">
+        <form role="form" action="login.php" class="formulario" method="post">
           <fieldset>
             <h1>Logueate</h1>
             <div class="row">
               <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                  <input type="email" name="email" class="form-control input-lg" placeholder="E-mail">
+                  <input type="email" name="userEmail" class="form-control input-lg <?= isset($errors['userEmail']) ? 'is-invalid' : ''; ?>" placeholder="Email" value="<?= $userEmail ?>">
+                  <?php if (isset($errors['userEmail'])): ?>
+                    <div class="invalid-feedback">
+                      <?= $errors['userEmail'] ?>
+                    </div>
+                  <?php endif; ?>
                 </div>
               </div>
               <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                  <input type="password" name="password" class="form-control input-lg" placeholder="Contraseña">
+                  <input type="password" name="password" class="form-control input-lg <?= isset($errors['userPassword']) ? 'is-invalid' : ''; ?>" placeholder="Contraseña">
+                  <?php if (isset($errors['userPassword'])): ?>
+                    <div class="invalid-feedback">
+                      <?= $errors['userPassword'] ?>
+                    </div>
+                  <?php endif; ?>
                 </div>
               </div>
             </div>
@@ -24,8 +46,8 @@
             </div>
             <div class="row">
               <div class="col-xs-12 col-sm-12 col-md-12 btnLRegister register">
-                <p>No tienes cuenta? Registrate gratis</p>
-                <a href="register.php" class="btn btn-lg btn-primary btn-block">Register</a>
+                <p>¿No tenés cuenta? Registrate gratis</p>
+                <a href="register.php" class="btn btn-lg btn-primary btn-block">Registrate</a>
               </div>
             </div>
           </fieldset>
