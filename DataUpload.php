@@ -10,8 +10,9 @@ function SaveImage($file){
   return $fileName;
 }
 function saveUser ($post){
-  $userArray = userCreator($post);
+	$userArray = userCreator($post);
   $userJason = json_encode($userArray);
+	var_dump($userJason);
   file_put_contents('db/db.json', $userJason . PHP_EOL, FILE_APPEND);/*FILE_APPEND es para que agregemos al final del archivo texto sin sobreescribir.  PHP_EOL es el fin de linea definido en php es como el <br> del html*/
   return $userArray;
 }
@@ -56,7 +57,7 @@ function Loguot(){
 }
 function userCreator($user){
     $arrayUser = [
-      'id' => setId(),
+      //'id' => setId(),
       'name' => $user['userName'],
 			'apellido' => $user['userSurname'],
 			'nickname' => $user['userNickname'],
