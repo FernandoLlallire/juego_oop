@@ -14,14 +14,23 @@
   $userNickname = isset ($_POST['userNickname']) ? trim ($_POST['userNickname']) : '';
   $userEmail = isset ($_POST['userEmail']) ? trim ($_POST['userEmail']) : '';
   $userCountry = isset ($_POST['userCountry']) ? $_POST ['userCountry'] : '';
+  echo "<pre>";
+  var_dump(!empty($_POST));
+  echo "</pre>";
+if (!empty($_POST)) {
 
-if ($_POST) {
   $errors = sanitizateAndValidateData($_POST, $_FILES);
+
+  if (empty($errors)){
+    $_POST["avatar"] = $_FILES["imagen"];//$_FILES es un array donde estan todos los archivos que subamos, en este caso mandamos todos los datos de nuestra imagen (nombre puesto en el label del input)
+    saveUser($_POST);
+  }
 }
 
 
 
   $countries = [
+    ''   => 'Seleccioná tu país*',
 		'ar' => 'Argentina',
 		'uy' => 'Uruguay',
 	];
@@ -75,7 +84,7 @@ if ($_POST) {
           <div class="row">
             <div class="col-xs-12 col-sm-6 col-md-6">
               <div class="form-group">
-                <input type="password" name="password" class="form-control input-lg <?= isset($errors['userPassword']) ? 'is-invalid' : ''; ?>" placeholder="Contraseña*" tabindex="5">
+                <input type="password" name="userPassword" class="form-control input-lg <?= isset($errors['userPassword']) ? 'is-invalid' : ''; ?>" placeholder="Contraseña*" tabindex="5">
                 <?php if (isset($errors['userPassword'])): ?>
                   <div class="invalid-feedback">
                     <?= $errors['userPassword'] ?>
@@ -85,7 +94,7 @@ if ($_POST) {
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6">
               <div class="form-group">
-                <input type="password" name="Repassword" class="form-control input-lg <?= isset($errors['userRePassword']) ? 'is-invalid' : ''; ?>" placeholder="Confirmar contraseña*" tabindex="6">
+                <input type="password" name="userRePassword" class="form-control input-lg <?= isset($errors['userRePassword']) ? 'is-invalid' : ''; ?>" placeholder="Confirmar contraseña*" tabindex="6">
                 <?php if (isset($errors['userRePassword'])): ?>
                   <div class="invalid-feedback">
                     <?= $errors['userRePassword'] ?>
@@ -95,8 +104,7 @@ if ($_POST) {
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6">
               <div class="form-group">
-                <select class="form-control" name="userCountry">
-                    <option class="hidden <?= isset($errors['userCountry']) ? 'is-invalid' : ''; ?>"  selected disabled>Seleccioná tu país*</option>
+                <select class="form-control <?= isset($errors['userCountry']) ? 'is-invalid' : ''; ?>" name="userCountry">
                     <?php foreach ($countries as $code => $country): ?>
                                 <option <?= $code == $userCountry ? 'selected' : '' ?>
                                 value="<?= $code ?>"><?= $country ?></option>
@@ -108,7 +116,7 @@ if ($_POST) {
           </div>
           <div class="">
             <label for="file">Archivo</label>
-            <input type="file" name="file" ><br>
+            <input type="file" name="imagen" ><br>
           </div>
           <div class="row">
             <div class="col-xs-12 col-md-12 register btnRRegister">

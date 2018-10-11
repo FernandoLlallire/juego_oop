@@ -5,22 +5,23 @@ for all the chars that we dont allow we base in the indformation in this pages:
 https://openwebinars.net/blog/sanitizar-datos-en-php/
 https://stackoverflow.com/questions/5863508/php-sanitize-data
 http://php.net/manual/en/book.filter.php*/
-define ( 'EMPTY_NAME', "ingrese el nombre completo" );
+define ( "EMPTY_NAME", "ingrese el nombre completo" );
 define ( "EMPTY_USERNAME", "ingrese el nombre de usuario" );
 define ( "EMPTY_SURNAME", "ingrese el apellido" );
 define ( "INVALID_NAME", "Caracter invalido en el nombre, ingrese solo letras" );
 define ( "INVALID_USERNAME", "Caracter invalido en UserName" );
-define ( "EMPTY_MAIL", "Ingrese un mail");
-define ("INVALID_MAIL","Formato de mail invalido");
-define ("EXISTING_MAIL", "Mail ya registrado en la pagina");
-define ("EMPTY_COUNTRY", "Seleccione un Pais");
-define ("EMPTY_FILE", "Seleccione un Avatar");
-define ("EXTENSION_FILE_ERROR", "Formato de imagen no valido");
-define("EMPTY_PASSWORD", "Complete las contraseñas");
-define("DIFERENT_PASSWORD", "Las contraseñas tienen que coincidir");
-define("MIN_PASSWORD_LENGTH", "Las contraseñas tienen que tener como minimo 6 caracteres");
-define('VALID_EXTENSION', ['jpg', 'png', 'jpeg', 'gif', 'svg']);
-define("EXISTING_USERNAME", "El usuario ya esta registrado");
+define ( "EMPTY_MAIL", "Ingrese un mail" );
+define ( "INVALID_MAIL","Formato de mail invalido" );
+define ( "EXISTING_MAIL", "Mail ya registrado en la pagina" );
+define ( "EMPTY_COUNTRY", "Seleccione un Pais" );
+define ( "EMPTY_FILE", "Seleccione un Avatar" );
+define ( "EXTENSION_FILE_ERROR", "Formato de imagen no valido" );
+define ( "EMPTY_PASSWORD", "Complete las contraseñas" );
+define ( "DIFERENT_PASSWORD", "Las contraseñas tienen que coincidir" );
+define ( "MIN_PASSWORD_LENGTH", "Las contraseñas tienen que tener como minimo 6 caracteres" );
+define ( "VALID_EXTENSION", ["jpg", "png", "jpeg", "gif", "svg"] );
+define ( "EXISTING_USERNAME", "El usuario ya esta registrado" );
+define ( "LENGTH_PASSWORD", "La contraseña debe tener más de 4 caracteres" );
 $forbidden_chars= [ "?","[","]","/","\\","=","<",">",":",";",",","'","\"","&","$","#","*","(",")" ,"|","~","`","!","{","}","%","+" ];
 /*we allow the following special characters but no the ones in $forbidden_chars.
 the value by default is false if everything  is ok.*/
@@ -41,11 +42,9 @@ return $dataSanitizate;
 }
 function sanitizateAndValidateData($post,$file){
   $errors = [];
- $archivo = (isset($file["imagen"]) ? $file["imagen"] : "");
-
+  /*empty nos devuelve un true si el elemento esta vacio o es false. en este caso */
   empty($post["userName"]) ? $errors["userName"] = EMPTY_NAME : ( invalidChar(trim($post["userName"])) ? $errors["userName"] = INVALID_NAME : "" );
-  //empty($post["userName"]) ? $errors["userName"] = EMPTY_USERNAME : ( invalidChar(trim($post["userName"])) ? $errors["userName"] = INVALID_USERNAME : (IsRegister($post["userName"], "userName") ? $errors["userName"]= EXISTING_USERNAME : "") ); es demasiado complejo de leer se cambia
-empty($post["userSurname"]) ? $errors["userSurname"] = EMPTY_SURNAME : ( invalidChar(trim($post["userSurname"])) ? $errors["userSurname"] = INVALID_NAME : "" );
+  empty($post["userSurname"]) ? $errors["userSurname"] = EMPTY_SURNAME : ( invalidChar(trim($post["userSurname"])) ? $errors["userSurname"] = INVALID_NAME : "" );
   if (empty($post["userNickname"])){
     $errors["userNickname"] = EMPTY_USERNAME;
   }elseif (invalidChar(trim($post["userNickname"]))) {
@@ -53,12 +52,17 @@ empty($post["userSurname"]) ? $errors["userSurname"] = EMPTY_SURNAME : ( invalid
   }elseif (IsRegister($post["userNickname"], "userNickname")) {
     $errors["userNickname"]= EXISTING_USERNAME;
   }
-  empty($post["UserCountry"]) ? $errors["userCountry"] = EMPTY_COUNTRY : "";
-// if (isset($archivo)) {if($archivo["error"] !== UPLOAD_ERR_OK){
-//    $errors["imagen"] = EMPTY_FILE;
-//  } elseif ( !in_array ( pathinfo($archivo['name'], PATHINFO_EXTENSION), VALID_EXTENSION ) ) {/*pathinfo junto con PATHINFO_EXTENSION nos devuelve la extension de la imagen q es apuntado en $_FILES[name] y por ultimo con el in_array nos fijamos si esta dentro del array de formatos permitidos.*/
-//    $errors["imagen"] = EXTENSION_FILE_ERROR;
-//  }}
+
+  empty($post["userCountry"]) ? $errors["userCountry"] = EMPTY_COUNTRY : "";
+
+  $archivo = (isset($file["imagen"]) ? $file["imagen"] : "");
+  if (isset($archivo["error"])) {
+    if($archivo["error"] !== UPLOAD_ERR_OK){
+     $errors["imagen"] = EMPTY_FILE;
+   } elseif ( !in_array ( pathinfo($archivo['name'], PATHINFO_EXTENSION), VALID_EXTENSION ) ) {/*pathinfo junto con PATHINFO_EXTENSION nos devuelve la extension de la imagen q es apuntado en $_FILES[name] y por ultimo con el in_array nos fijamos si esta dentro del array de formatos permitidos.*/
+     $errors["imagen"] = EXTENSION_FILE_ERROR;
+   }
+  }
 
   if(empty($post["userEmail"])){
     $errors["userEmail"] = EMPTY_MAIL;
@@ -67,12 +71,13 @@ empty($post["userSurname"]) ? $errors["userSurname"] = EMPTY_SURNAME : ( invalid
   } elseif (IsRegister($post["userEmail"],"userEmail")) {
     $errors["userEmail"] = EXISTING_MAIL;
   }
+
   if ( empty($post["userPassword"]) || empty($post["userRePassword"]) ) {
     $errors['userPassword'] = EMPTY_PASSWORD;
-  } elseif ( $post["userPassword"] !== empty($post["userRePassword"])) { //stackoverflow aconseja que usemos el tipo de comparacion sin el tipo. y no el strcmp por ese tiene mas tiempo de ejecucion
+  } elseif ( $post["userPassword"] !== $post["userRePassword"]) { //stackoverflow aconseja que usemos el tipo de comparacion sin el tipo. y no el strcmp por ese tiene mas tiempo de ejecucion
     $errors['userPassword'] = DIFERENT_PASSWORD;
-  } elseif ( strlen($post["userPassword"]) < 6 || strlen($post["userRePassword"]) < 6 ) {
-    $errors['userPassword'] = 'La contraseña debe tener más de 4 caracteres';
+  } elseif ( strlen($post["userPassword"]) < 4 || strlen($post["userRePassword"]) < 4 ) {
+    $errors['userPassword'] = LENGTH_PASSWORD;
   } return $errors;
 }
 /*IsRegister es una funcion generica que nos permite recorrer el array en busca de cualquier key asociativa de esta manera evitamos repetirla*/

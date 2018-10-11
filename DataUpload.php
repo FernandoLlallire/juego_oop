@@ -62,13 +62,13 @@ la salida es un array asociativo con los parametros a guardar*/
 function userCreator($user){
     $arrayUser = [
       'id' => setId(),
-      'name' => $user['userName'],
-			'apellido' => $user['userSurname'],
-			'nickname' => $user['userNickname'],
-      'email' => $user['userEmail'],
-      'password' => password_hash($user['password'], PASSWORD_DEFAULT),//De esta nabera nosotros ofrecemos seguridad a las contraseñas hasheandolas para que no se vea cual es. la unica manera de asber es por comparacion.
-      'country' => $user['userCountry'],
-      'avatar' => SaveImage($user["avatar"]),//user hace referencia al $_POST y dentro de avatar nosotros guardamos toda la informacion acerca de nuestra imagen
+      'userName' => $user['userName'],
+			'userSurname' => $user['userSurname'],
+			'userNickname' => $user['userNickname'],
+      'userEmail' => $user['userEmail'],
+      'userPassword' => password_hash($user['userPassword'], PASSWORD_DEFAULT),//De esta nabera nosotros ofrecemos seguridad a las contraseñas hasheandolas para que no se vea cual es. la unica manera de asber es por comparacion.
+      'userCountry' => $user['userCountry'],
+      'imagen' => SaveImage($user["avatar"]),//user hace referencia al $_POST y dentro de avatar nosotros guardamos toda la informacion acerca de nuestra imagen
     ];
     return $arrayUser;
 }
