@@ -1,4 +1,13 @@
-  <?php require_once 'header.php'; ?>
+<?php
+require_once 'DataSanitization.php';
+require_once 'DataUpload.php';
+require_once 'header.php';
+IsSession();
+if (isset($_SESSION["user"])){
+
+}
+//  exit;
+ ?>
   <link rel="stylesheet" href="css/css-delfi.css">
   <div class="container">
   	<div class="row">

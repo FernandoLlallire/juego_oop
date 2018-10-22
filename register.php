@@ -2,7 +2,6 @@
   require_once 'header.php';
   require_once 'DataSanitization.php';
   require_once 'DataUpload.php';
-
 //Pendiente la comunicación de la DB con la función isLogged
   // if ( isLogged() ) {
   // header('location: profile.php');
@@ -14,16 +13,19 @@
   $userNickname = isset ($_POST['userNickname']) ? trim ($_POST['userNickname']) : '';
   $userEmail = isset ($_POST['userEmail']) ? trim ($_POST['userEmail']) : '';
   $userCountry = isset ($_POST['userCountry']) ? $_POST ['userCountry'] : '';
-  echo "<pre>";
-  var_dump(!empty($_POST));
-  echo "</pre>";
+  $saveSession = isset ($_POST["saveSession"]) ? $_POST["saveSession"] : "";
 if (!empty($_POST)) {
 
-  $errors = sanitizateAndValidateData($_POST, $_FILES);
+  $errors = sanitizateAndValidateDataRegister($_POST, $_FILES);
 
   if (empty($errors)){
     $_POST["avatar"] = $_FILES["imagen"];//$_FILES es un array donde estan todos los archivos que subamos, en este caso mandamos todos los datos de nuestra imagen (nombre puesto en el label del input)
     saveUser($_POST);
+    if ($saveSession == true){
+      logIn(SaveCookie($_POST));
+    }else {
+      logIn($_POST);
+    }
   }
 }
 
@@ -117,6 +119,9 @@ if (!empty($_POST)) {
           <div class="">
             <label for="file">Archivo</label>
             <input type="file" name="imagen" ><br>
+          </div>
+          <div class="">
+            <label>Guardar Sesion<input type="checkbox" name="saveSession" ></label>
           </div>
           <div class="row">
             <div class="col-xs-12 col-md-12 register btnRRegister">

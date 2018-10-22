@@ -1,4 +1,6 @@
-
+<?php
+/*Esto es necesario obligatoriamente por que hacemos uso del session en el navbar si no no podriamos usar el $_SESSION*/
+session_start(); ?>
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -32,11 +34,16 @@
         "Login" => "login.php",
         "Preguntas frecuentes" => "faq.php",
         "Perfil" => "profile.php",
+        "LogOut" => "logout.php",
       ];
       foreach ($navBar as $opcion => $url) {
-        echo "<li class=\"nav-item active\" >";
-        echo "<a class='nav-link' href=$url>$opcion</a>";
-        echo "</li>";
+        if ( (($opcion == "Registro" || $opcion == "Login") && !empty($_SESSION))
+        || (($opcion == "Perfil" || $opcion == "LogOut") && empty($_SESSION)) ) {
+          continue;
+        }
+          echo "<li class=\"nav-item active\" >";
+          echo "<a class='nav-link' href=$url>$opcion</a>";
+          echo "</li>";
       }
       ?>
     </ul>

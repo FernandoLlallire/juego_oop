@@ -1,13 +1,19 @@
 <?php
-  require_once 'header.php';
   require_once 'DataSanitization.php';
   require_once 'DataUpload.php';
   $userEmail = isset ($_POST['userEmail']) ? trim ($_POST['userEmail']) : '';
 
-  if ($_POST) {
-    $errors = sanitizateAndValidateData($_POST, $_FILES);
+  if (!empty($_POST)) {
+    $errors = sanitizateAndValidateDataLogin($_POST);
+    if(empty($errors)){
+      if ($saveSession == true){
+        logIn(SaveCookie($_POST));
+      }else {
+        logIn($_POST);
+      }
+    }
   }
-
+require_once 'header.php';
 
 
  ?>
@@ -30,13 +36,16 @@
               </div>
               <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                  <input type="password" name="password" class="form-control input-lg <?= isset($errors['userPassword']) ? 'is-invalid' : ''; ?>" placeholder="Contraseña">
+                  <input type="password" name="userPassword" class="form-control input-lg <?= isset($errors['userPassword']) ? 'is-invalid' : ''; ?>" placeholder="Contraseña">
                   <?php if (isset($errors['userPassword'])): ?>
                     <div class="invalid-feedback">
                       <?= $errors['userPassword'] ?>
                     </div>
                   <?php endif; ?>
                 </div>
+              </div>
+              <div class="">
+                <label>Guardar Sesion<input type="checkbox" name="saveSession" ></label>
               </div>
             </div>
             <div class="row">

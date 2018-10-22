@@ -17,9 +17,14 @@ function saveUser ($post){
   file_put_contents('db/db.json', $userJason . PHP_EOL, FILE_APPEND);/*FILE_APPEND es para que agregemos al final del archivo texto sin sobreescribir.  PHP_EOL es el fin de linea definido en php es como el <br> del html*/
   return $userArray;
 }
+/* login lo que hace es tomar el valor del usuario en forma de array y lo guarda en la session
+el parametro de entrata esta definido de esta manera para poder ser trabajado junto con IsCookieSet*/
 function logIn ($arrayUser){
-  unset($userArray['id']);
-  unset($userArray['password']);
+	session_start();
+	if (isset($user['id']))
+		unset($user['id']);
+	if (isset($user['password']))
+		unset($user['password']);
   $_SESSION['user'] = $arrayUser;
   header('location: profile.php');
   exit;
@@ -48,14 +53,7 @@ function IsCookieSet (){
 	}
 	return $return;
 }
-/*Con Loguot deslogueamos y borramos todos los datos del cookie*/
-function Loguot(){
-	session_start();
-	session_destroy();
-	DeleteCokie();
-	header('location: index.php');
-	exit;
-}
+
 /*userCreator trabaja para crear el array con el que vamos a desear guardar lo que se envia al json.
 viene llamado de saveuser y le enviamos todo los datos del formulario+la como parametros en una sola variable.
 la salida es un array asociativo con los parametros a guardar*/
@@ -90,7 +88,12 @@ $id = end($allusers)["id"];/* Devuelve el ultimo elemento del array   http://php
 															Al hacer end($allusers)["id"] le digo que me tome el ultimo usuario del array y que ademas tome el campo del id*/
 	return ( is_null($id) ? 1 : ++$id );
 }
-
+function IsSession(){
+	if(empty($_SESSION)){
+			header('location: index.php');
+			exit;
+	}
+}
 function dbug($dato){
 	echo "<br><pre>";
 	var_dump($dato);
