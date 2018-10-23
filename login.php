@@ -1,9 +1,9 @@
 <?php
   require_once 'DataSanitization.php';
   require_once 'DataUpload.php';
-  
-  $email = isset ($_POST['email']) ? trim ($_POST['email']) : '';
 
+  $email = isset ($_POST['email']) ? trim ($_POST['email']) : '';
+  $rememberMe = isset ($_POST["session"]) ? $_POST["session"] : "";
   if ($_POST) {
     $errors = sanitizateAndValidateDataLogin($_POST);
     if(!$errors){

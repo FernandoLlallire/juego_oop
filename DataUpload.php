@@ -36,24 +36,22 @@ function logIn ($user){
 }
 
 function saveCookie($user){
-  setcookie("UserLog",hash("sha256" , $user["userName"]));//Se usa un hasheo con hash por ahora por q en mysql se va a guardar la  hora de creacion para encryotar junto contras cosas
+  setcookie("user",hash("sha256" , $user["email"]));//Se usa un hasheo con hash por ahora por q en mysql se va a guardar la  hora de creacion para encryotar junto contras cosas
 }
 function DeleteCokie(){
-	setcookie("UserLog",'', time() - 10);
+	setcookie("user",'', time() - 10);
 }
-/*IsCookieSet es una funcion que nos permite verificar si existe una cookie para nuestra pagina,
-en el caso de que no exista una cookie devolvemos FALSE, pero si existe y ademas el id coincide con el de algun usuario devolvemos el usuario por completo*/
-function IsCookieSet (){
-	$return = FALSE;
-	if (isset($_COOKIE["UserLog"])){
-		$idCookie = $_COOKIE["UserLog"];
+
+function isCookieSet (){
+	$return = false;
+	if (isset($_COOKIE["user"])){
+		$idCookie = $_COOKIE["user"];
 		$allUsers = getAllUsers();
 		foreach ($allUsers as $user) {
-			$idHasheado = hash("sha256" , $user["userName"]);
+			$idHasheado = hash("sha256" , $user["email"]);
 			if( $idHasheado ==  $idCookie){
-				unset($user['id']);
 				unset($user['password']);
-				$return = $user;
+				$return = true;
 			}
 		}
 	}
@@ -101,6 +99,19 @@ function getUserbyEmail($email){
 		if ( $user["email"] === $email ) {
 			unset($user["password"]);
 			$return = $user;
+		}
+	}
+	return $return;
+}
+function isSessionValid(){
+	$email=$_SESSION["user"]["email"];
+	$return = false;
+	$allUsers = getAllUsers();
+	foreach ($allUsers as $user) {
+		if ( $user["email"] == $email ) {
+			unset($user["password"]);
+			$return = true;
+			return $return;
 		}
 	}
 	return $return;

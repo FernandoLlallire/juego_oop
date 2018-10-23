@@ -3,7 +3,6 @@
   require_once 'DataSanitization.php';
   require_once 'DataUpload.php';
 
-
   $firstName = isset ($_POST['firstName']) ? trim ($_POST['firstName']) : '';
   $lastName = isset ($_POST['lastName']) ? trim ($_POST['lastName']) : '';
   $userName = isset ($_POST['userName']) ? trim ($_POST['userName']) : '';
