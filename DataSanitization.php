@@ -6,10 +6,10 @@ https://openwebinars.net/blog/sanitizar-datos-en-php/
 https://stackoverflow.com/questions/5863508/php-sanitize-data
 http://php.net/manual/en/book.filter.php*/
 define ( "ERROR_EMPTY_NAME", "ingrese el nombre completo" );
-define ( "ERROR_EMPTY_USERNAME", "ingrese el nombre de usuario" );
+define ( "ERROR_EMPTY_firstName", "ingrese el nombre de usuario" );
 define ( "ERROR_EMPTY_SURNAME", "ingrese el apellido" );
 define ( "ERROR_INVALID_NAME", "Caracter invalido en el nombre, ingrese solo letras" );
-define ( "ERROR_INVALID_USERNAME", "Caracter invalido en UserName" );
+define ( "ERROR_INVALID_firstName", "Caracter invalido en firstName" );
 define ( "ERROR_EMPTY_MAIL", "Ingrese un mail" );
 define ( "ERROR_INVALID_MAIL","Formato de mail invalido" );
 define ( "ERROR_EXISTING_MAIL", "Mail ya registrado en la pagina" );
@@ -20,7 +20,7 @@ define ( "ERROR_EMPTY_PASSWORD", "Complete las contraseñas" );
 define ( "ERROR_DIFERENT_PASSWORD", "Las contraseñas tienen que coincidir" );
 define ( "ERROR_MIN_PASSWORD_LENGTH", "Las contraseñas tienen que tener como minimo 6 caracteres" );
 define ( "VALID_EXTENSION", ["jpg", "png", "jpeg", "gif", "svg"] );
-define ( "ERROR_EXISTING_USERNAME", "El usuario ya esta registrado" );
+define ( "ERROR_EXISTING_firstName", "El usuario ya esta registrado" );
 define ( "ERROR_LENGTH_PASSWORD", "La contraseña debe tener más de 4 caracteres" );
 define ("ERROR_NOT_VALID_USER", "Usuario No registrado");
 define ("ERROR_INVALID_PASSWORD", "Contraseña incorrecta");
@@ -45,17 +45,17 @@ return $dataSanitizate;
 function sanitizateAndValidateDataRegister($post,$file){
   $errors = [];
   /*empty nos devuelve un true si el elemento esta vacio o es false. en este caso */
-  empty($post["userName"]) ? $errors["userName"] = ERROR_EMPTY_NAME : ( invalidChar(trim($post["userName"])) ? $errors["userName"] = ERROR_INVALID_NAME : "" );
-  empty($post["userSurname"]) ? $errors["userSurname"] = ERROR_EMPTY_SURNAME : ( invalidChar(trim($post["userSurname"])) ? $errors["userSurname"] = ERROR_INVALID_NAME : "" );
-  if (empty($post["userNickname"])){
-    $errors["userNickname"] = ERROR_EMPTY_USERNAME;
-  }elseif (invalidChar(trim($post["userNickname"]))) {
-    $errors["userNickname"] = ERROR_INVALID_USERNAME;
-  }elseif (IsRegister($post["userNickname"], "userNickname")) {
-    $errors["userNickname"]= ERROR_EXISTING_USERNAME;
+  empty($post["firstName"]) ? $errors["firstName"] = ERROR_EMPTY_NAME : ( invalidChar(trim($post["firstName"])) ? $errors["firstName"] = ERROR_INVALID_NAME : "" );
+  empty($post["lastName"]) ? $errors["lastName"] = ERROR_EMPTY_SURNAME : ( invalidChar(trim($post["lastName"])) ? $errors["lastName"] = ERROR_INVALID_NAME : "" );
+  if (empty($post["userName"])){
+    $errors["userName"] = ERROR_EMPTY_firstName;
+  }elseif (invalidChar(trim($post["userName"]))) {
+    $errors["userName"] = ERROR_INVALID_firstName;
+  }elseif (IsRegister($post["userName"], "userName")) {
+    $errors["userName"]= ERROR_EXISTING_firstName;
   }
 
-  empty($post["userCountry"]) ? $errors["userCountry"] = ERROR_EMPTY_COUNTRY : "";
+  empty($post["country"]) ? $errors["country"] = ERROR_EMPTY_COUNTRY : "";
 
   $archivo = (isset($file["imagen"]) ? $file["imagen"] : "");
   if (isset($archivo["error"])) {
@@ -66,35 +66,35 @@ function sanitizateAndValidateDataRegister($post,$file){
    }
   }
 
-  if(empty($post["userEmail"])){
-    $errors["userEmail"] = ERROR_EMPTY_MAIL;
-  } elseif (!filter_var($post["userEmail"], FILTER_VALIDATE_EMAIL)) {
-    $errors["userEmail"] = ERROR_INVALID_MAIL;
-  } elseif (IsRegister($post["userEmail"],"userEmail")) {
-    $errors["userEmail"] = ERROR_EXISTING_MAIL;
+  if(empty($post["email"])){
+    $errors["email"] = ERROR_EMPTY_MAIL;
+  } elseif (!filter_var($post["email"], FILTER_VALIDATE_EMAIL)) {
+    $errors["email"] = ERROR_INVALID_MAIL;
+  } elseif (IsRegister($post["email"],"email")) {
+    $errors["email"] = ERROR_EXISTING_MAIL;
   }
 
-  if ( empty($post["userPassword"]) || empty($post["userRePassword"]) ) {
-    $errors['userPassword'] = ERROR_EMPTY_PASSWORD;
-  } elseif ( $post["userPassword"] !== $post["userRePassword"]) { //stackoverflow aconseja que usemos el tipo de comparacion sin el tipo. y no el strcmp por ese tiene mas tiempo de ejecucion
-    $errors['userPassword'] = ERROR_DIFERENT_PASSWORD;
-  } elseif ( strlen($post["userPassword"]) < 4 || strlen($post["userRePassword"]) < 4 ) {
-    $errors['userPassword'] = ERROR_LENGTH_PASSWORD;
+  if ( empty($post["password"]) || empty($post["rePassword"]) ) {
+    $errors['password'] = ERROR_EMPTY_PASSWORD;
+  } elseif ( $post["password"] !== $post["rePassword"]) { //stackoverflow aconseja que usemos el tipo de comparacion sin el tipo. y no el strcmp por ese tiene mas tiempo de ejecucion
+    $errors['password'] = ERROR_DIFERENT_PASSWORD;
+  } elseif ( strlen($post["password"]) < 4 || strlen($post["rePassword"]) < 4 ) {
+    $errors['password'] = ERROR_LENGTH_PASSWORD;
   } return $errors;
 }
 function sanitizateAndValidateDataLogin ($post){
   $errors = [];
-  if(empty($post["userEmail"])){
-    $errors["userEmail"] = ERROR_EMPTY_MAIL;
-  } elseif (!filter_var($post["userEmail"], FILTER_VALIDATE_EMAIL)) {
-    $errors["userEmail"] = ERROR_INVALID_MAIL;
-  } elseif(!IsRegister($post["userEmail"],"userEmail")){
-    $errors["userEmail"] = ERROR_NOT_VALID_USER;
-  } elseif ( empty($post["userPassword"]) ) {
-    $errors['userPassword'] = ERROR_EMPTY_PASSWORD;
+  if(empty($post["email"])){
+    $errors["email"] = ERROR_EMPTY_MAIL;
+  } elseif (!filter_var($post["email"], FILTER_VALIDATE_EMAIL)) {
+    $errors["email"] = ERROR_INVALID_MAIL;
+  } elseif(!IsRegister($post["email"],"email")){
+    $errors["email"] = ERROR_NOT_VALID_USER;
+  } elseif ( empty($post["password"]) ) {
+    $errors['password'] = ERROR_EMPTY_PASSWORD;
   } else {
     if (!IsRegisterPassword($post)){
-      $errors["userPassword"] = ERROR_INVALID_PASSWORD;
+      $errors["password"] = ERROR_INVALID_PASSWORD;
     }
   }
   return $errors;
@@ -117,7 +117,7 @@ function IsRegisterPassword ($post) {
   $allUsers = getAllUsers();//aca allUsers es un array de arrays en la que tenemos todos los usuarios y cada elemento por separado
   $return = FALSE;
   foreach ($allUsers as $user) {
-    if ( $user["userEmail"] === $post["userEmail"] && password_verify ( $post["userPassword"] , $user["userPassword"] )) {
+    if ( $user["email"] === $post["email"] && password_verify ( $post["password"] , $user["password"] )) {
       $return = TRUE;
     }
   }

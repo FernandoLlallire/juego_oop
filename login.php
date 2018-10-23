@@ -1,13 +1,15 @@
 <?php
   require_once 'DataSanitization.php';
   require_once 'DataUpload.php';
-  $userEmail = isset ($_POST['userEmail']) ? trim ($_POST['userEmail']) : '';
+  
+  $email = isset ($_POST['email']) ? trim ($_POST['email']) : '';
 
-  if (!empty($_POST)) {
+  if ($_POST) {
     $errors = sanitizateAndValidateDataLogin($_POST);
-    if(empty($errors)){
-      if ($saveSession == true){
-        logIn(SaveCookie($_POST));
+    if(!$errors){
+      if ($rememberMe == true){
+        saveCookie($_POST);
+        logIn($_POST);
       }else {
         logIn($_POST);
       }
@@ -26,26 +28,26 @@ require_once 'header.php';
             <div class="row">
               <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                  <input type="email" name="userEmail" class="form-control input-lg <?= isset($errors['userEmail']) ? 'is-invalid' : ''; ?>" placeholder="Email" value="<?= $userEmail ?>">
-                  <?php if (isset($errors['userEmail'])): ?>
+                  <input type="email" name="email" class="form-control input-lg <?= isset($errors['email']) ? 'is-invalid' : ''; ?>" placeholder="Email" value="<?= $email ?>">
+                  <?php if (isset($errors['email'])): ?>
                     <div class="invalid-feedback">
-                      <?= $errors['userEmail'] ?>
+                      <?= $errors['email'] ?>
                     </div>
                   <?php endif; ?>
                 </div>
               </div>
               <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                  <input type="password" name="userPassword" class="form-control input-lg <?= isset($errors['userPassword']) ? 'is-invalid' : ''; ?>" placeholder="Contraseña">
-                  <?php if (isset($errors['userPassword'])): ?>
+                  <input type="password" name="password" class="form-control input-lg <?= isset($errors['password']) ? 'is-invalid' : ''; ?>" placeholder="Contraseña">
+                  <?php if (isset($errors['password'])): ?>
                     <div class="invalid-feedback">
-                      <?= $errors['userPassword'] ?>
+                      <?= $errors['password'] ?>
                     </div>
                   <?php endif; ?>
                 </div>
               </div>
               <div class="">
-                <label>Guardar Sesion<input type="checkbox" name="saveSession" ></label>
+                <label>Guardar Sesion<input type="checkbox" name="session" ></label>
               </div>
             </div>
             <div class="row">

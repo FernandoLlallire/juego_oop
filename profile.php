@@ -2,11 +2,10 @@
 require_once 'DataSanitization.php';
 require_once 'DataUpload.php';
 require_once 'header.php';
-IsSession();
-if (isset($_SESSION["user"])){
-
+if(empty($_SESSION)){
+    header('location: index.php');
+    exit;
 }
-//  exit;
  ?>
   <link rel="stylesheet" href="css/css-delfi.css">
   <div class="container">

@@ -2,27 +2,23 @@
   require_once 'header.php';
   require_once 'DataSanitization.php';
   require_once 'DataUpload.php';
-//Pendiente la comunicación de la DB con la función isLogged
-  // if ( isLogged() ) {
-  // header('location: profile.php');
-  // exit;
-  // }
 
+
+  $firstName = isset ($_POST['firstName']) ? trim ($_POST['firstName']) : '';
+  $lastName = isset ($_POST['lastName']) ? trim ($_POST['lastName']) : '';
   $userName = isset ($_POST['userName']) ? trim ($_POST['userName']) : '';
-  $userSurname = isset ($_POST['userSurname']) ? trim ($_POST['userSurname']) : '';
-  $userNickname = isset ($_POST['userNickname']) ? trim ($_POST['userNickname']) : '';
-  $userEmail = isset ($_POST['userEmail']) ? trim ($_POST['userEmail']) : '';
-  $userCountry = isset ($_POST['userCountry']) ? $_POST ['userCountry'] : '';
-  $saveSession = isset ($_POST["saveSession"]) ? $_POST["saveSession"] : "";
-if (!empty($_POST)) {
+  $email = isset ($_POST['email']) ? trim ($_POST['email']) : '';
+  $country = isset ($_POST['country']) ? $_POST ['country'] : '';
+  $rememberMe = isset ($_POST["session"]) ? $_POST["session"] : "";
+if ($_POST) {
 
   $errors = sanitizateAndValidateDataRegister($_POST, $_FILES);
-
-  if (empty($errors)){
+  if (!$errors){
     $_POST["avatar"] = $_FILES["imagen"];//$_FILES es un array donde estan todos los archivos que subamos, en este caso mandamos todos los datos de nuestra imagen (nombre puesto en el label del input)
     saveUser($_POST);
-    if ($saveSession == true){
-      logIn(SaveCookie($_POST));
+    if ($rememberMe == true){
+      saveCookie($_POST);
+      logIn($_POST);
     }else {
       logIn($_POST);
     }
@@ -48,67 +44,67 @@ if (!empty($_POST)) {
           <div class="row">
             <div class="col-xs-12 col-sm-6 col-md-6">
               <div class="form-group">
-                <input type="text" name="userName" class="form-control input-lg <?= isset($errors['userName']) ? 'is-invalid' : ''; ?>" placeholder="Nombre*" value="<?= $userName ?>" tabindex="1">
-                  <?php if (isset($errors['userName'])): ?>
+                <input type="text" name="firstName" class="form-control input-lg <?= isset($errors['firstName']) ? 'is-invalid' : ''; ?>" placeholder="Nombre*" value="<?= $firstName ?>" tabindex="1">
+                  <?php if (isset($errors['firstName'])): ?>
                     <div class="invalid-feedback">
-                        <?= $errors['userName'] ?>
+                        <?= $errors['firstName'] ?>
                     </div>
                   <?php endif; ?>
               </div>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6">
               <div class="form-group">
-                <input type="text" name="userSurname" class="form-control input-lg <?= isset($errors['userSurname']) ? 'is-invalid' : ''; ?>" placeholder="Apellido*" value="<?= $userSurname ?>" tabindex="2">
-                <?php if (isset($errors['userSurname'])): ?>
+                <input type="text" name="lastName" class="form-control input-lg <?= isset($errors['lastName']) ? 'is-invalid' : ''; ?>" placeholder="Apellido*" value="<?= $lastName ?>" tabindex="2">
+                <?php if (isset($errors['lastName'])): ?>
                   <div class="invalid-feedback">
-                    <?= $errors['userSurname'] ?>
+                    <?= $errors['lastName'] ?>
                   </div>
                 <?php endif; ?>
               </div>
             </div>
           </div>
           <div class="form-group">
-            <input type="text" name="userNickname" class="form-control input-lg <?= isset($errors['userNickname']) ? 'is-invalid' : ''; ?>" placeholder="Nombre de usuario*" value="<?= $userNickname ?>" tabindex="3">
-            <?php if (isset($errors['userNickname'])): ?>
+            <input type="text" name="userName" class="form-control input-lg <?= isset($errors['userName']) ? 'is-invalid' : ''; ?>" placeholder="Nombre de usuario*" value="<?= $userName ?>" tabindex="3">
+            <?php if (isset($errors['userName'])): ?>
               <div class="invalid-feedback">
-                <?= $errors['userNickname'] ?>
+                <?= $errors['userName'] ?>
               </div>
             <?php endif; ?>
           </div>
           <div class="form-group">
-            <input type="email" name="userEmail" class="form-control input-lg <?= isset($errors['userEmail']) ? 'is-invalid' : ''; ?>" placeholder="Email*" value="<?= $userEmail ?>" tabindex="4">
-            <?php if (isset($errors['userEmail'])): ?>
+            <input type="email" name="email" class="form-control input-lg <?= isset($errors['email']) ? 'is-invalid' : ''; ?>" placeholder="Email*" value="<?= $email ?>" tabindex="4">
+            <?php if (isset($errors['email'])): ?>
               <div class="invalid-feedback">
-                <?= $errors['userEmail'] ?>
+                <?= $errors['email'] ?>
               </div>
             <?php endif; ?>
           </div>
           <div class="row">
             <div class="col-xs-12 col-sm-6 col-md-6">
               <div class="form-group">
-                <input type="password" name="userPassword" class="form-control input-lg <?= isset($errors['userPassword']) ? 'is-invalid' : ''; ?>" placeholder="Contraseña*" tabindex="5">
-                <?php if (isset($errors['userPassword'])): ?>
+                <input type="password" name="password" class="form-control input-lg <?= isset($errors['password']) ? 'is-invalid' : ''; ?>" placeholder="Contraseña*" tabindex="5">
+                <?php if (isset($errors['password'])): ?>
                   <div class="invalid-feedback">
-                    <?= $errors['userPassword'] ?>
+                    <?= $errors['password'] ?>
                   </div>
                 <?php endif; ?>
               </div>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6">
               <div class="form-group">
-                <input type="password" name="userRePassword" class="form-control input-lg <?= isset($errors['userRePassword']) ? 'is-invalid' : ''; ?>" placeholder="Confirmar contraseña*" tabindex="6">
-                <?php if (isset($errors['userRePassword'])): ?>
+                <input type="password" name="rePassword" class="form-control input-lg <?= isset($errors['rePassword']) ? 'is-invalid' : ''; ?>" placeholder="Confirmar contraseña*" tabindex="6">
+                <?php if (isset($errors['rePassword'])): ?>
                   <div class="invalid-feedback">
-                    <?= $errors['userRePassword'] ?>
+                    <?= $errors['rePassword'] ?>
                   </div>
                 <?php endif; ?>
               </div>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6">
               <div class="form-group">
-                <select class="form-control <?= isset($errors['userCountry']) ? 'is-invalid' : ''; ?>" name="userCountry">
+                <select class="form-control <?= isset($errors['country']) ? 'is-invalid' : ''; ?>" name="country">
                     <?php foreach ($countries as $code => $country): ?>
-                                <option <?= $code == $userCountry ? 'selected' : '' ?>
+                                <option <?= $code == $country ? 'selected' : '' ?>
                                 value="<?= $code ?>"><?= $country ?></option>
                     <?php endforeach; ?>
 
@@ -121,7 +117,7 @@ if (!empty($_POST)) {
             <input type="file" name="imagen" ><br>
           </div>
           <div class="">
-            <label>Guardar Sesion<input type="checkbox" name="saveSession" ></label>
+            <label>Guardar Sesion<input type="checkbox" name="session" ></label>
           </div>
           <div class="row">
             <div class="col-xs-12 col-md-12 register btnRRegister">

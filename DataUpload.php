@@ -17,20 +17,26 @@ function saveUser ($post){
   file_put_contents('db/db.json', $userJason . PHP_EOL, FILE_APPEND);/*FILE_APPEND es para que agregemos al final del archivo texto sin sobreescribir.  PHP_EOL es el fin de linea definido en php es como el <br> del html*/
   return $userArray;
 }
+
 /* login lo que hace es tomar el valor del usuario en forma de array y lo guarda en la session
-el parametro de entrata esta definido de esta manera para poder ser trabajado junto con IsCookieSet*/
-function logIn ($arrayUser){
+el parametro de entrada esta definido de esta manera para poder ser trabajado junto con IsCookieSet*/
+/**
+ * Funcion de login de usuarios
+ *
+ * Guarda el usuario en sesión, antes quita el campo de contraseñarray
+ *
+ * @param array $user
+ */
+function logIn ($user){
 	session_start();
-	if (isset($user['id']))
-		unset($user['id']);
-	if (isset($user['password']))
-		unset($user['password']);
-  $_SESSION['user'] = $arrayUser;
+
+  $_SESSION['user'] = getUserbyEmail($user["email"]);
   header('location: profile.php');
   exit;
 }
-function SaveCookie($user){
-  setcookie("UserLog",hash("sha256" , $user["userNickname"]));//Se usa un hasheo con hash por ahora por q en mysql se va a guardar la  hora de creacion para encryotar junto contras cosas
+
+function saveCookie($user){
+  setcookie("UserLog",hash("sha256" , $user["userName"]));//Se usa un hasheo con hash por ahora por q en mysql se va a guardar la  hora de creacion para encryotar junto contras cosas
 }
 function DeleteCokie(){
 	setcookie("UserLog",'', time() - 10);
@@ -43,7 +49,7 @@ function IsCookieSet (){
 		$idCookie = $_COOKIE["UserLog"];
 		$allUsers = getAllUsers();
 		foreach ($allUsers as $user) {
-			$idHasheado = hash("sha256" , $user["userNickname"]);
+			$idHasheado = hash("sha256" , $user["userName"]);
 			if( $idHasheado ==  $idCookie){
 				unset($user['id']);
 				unset($user['password']);
@@ -60,12 +66,12 @@ la salida es un array asociativo con los parametros a guardar*/
 function userCreator($user){
     $arrayUser = [
       'id' => setId(),
-      'userName' => $user['userName'],
-			'userSurname' => $user['userSurname'],
-			'userNickname' => $user['userNickname'],
-      'userEmail' => $user['userEmail'],
-      'userPassword' => password_hash($user['userPassword'], PASSWORD_DEFAULT),//De esta nabera nosotros ofrecemos seguridad a las contraseñas hasheandolas para que no se vea cual es. la unica manera de asber es por comparacion.
-      'userCountry' => $user['userCountry'],
+      'firstName' => $user['firstName'],
+			'lastName' => $user['lastName'],
+			'userName' => $user['userName'],
+      'email' => $user['email'],
+      'password' => password_hash($user['password'], PASSWORD_DEFAULT),//De esta nabera nosotros ofrecemos seguridad a las contraseñas hasheandolas para que no se vea cual es. la unica manera de asber es por comparacion.
+      'country' => $user['country'],
       'imagen' => SaveImage($user["avatar"]),//user hace referencia al $_POST y dentro de avatar nosotros guardamos toda la informacion acerca de nuestra imagen
     ];
     return $arrayUser;
@@ -88,11 +94,16 @@ $id = end($allusers)["id"];/* Devuelve el ultimo elemento del array   http://php
 															Al hacer end($allusers)["id"] le digo que me tome el ultimo usuario del array y que ademas tome el campo del id*/
 	return ( is_null($id) ? 1 : ++$id );
 }
-function IsSession(){
-	if(empty($_SESSION)){
-			header('location: index.php');
-			exit;
+function getUserbyEmail($email){
+	$allUsers = getAllUsers();
+	$return = false;
+	foreach ($allUsers as $user) {
+		if ( $user["email"] === $email ) {
+			unset($user["password"]);
+			$return = $user;
+		}
 	}
+	return $return;
 }
 function dbug($dato){
 	echo "<br><pre>";
