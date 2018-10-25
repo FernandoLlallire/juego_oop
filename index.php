@@ -1,5 +1,7 @@
 <?php
   require_once 'header.php';
+  require_once 'DataSanitization.php';
+  require_once 'DataUpload.php';
   ?>
   <br>
   <br>

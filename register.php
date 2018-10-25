@@ -2,7 +2,16 @@
   require_once 'header.php';
   require_once 'DataSanitization.php';
   require_once 'DataUpload.php';
-
+  if(isset($_COOKIE["user"])){
+    $user=getUserFromCookie();
+    if($user){
+      logIn($user["email"]);
+    }
+  }
+  if(isset($_SESSION["user"])){
+    header('location: profile.php');
+    exit;
+  }
   $firstName = isset ($_POST['firstName']) ? trim ($_POST['firstName']) : '';
   $lastName = isset ($_POST['lastName']) ? trim ($_POST['lastName']) : '';
   $userName = isset ($_POST['userName']) ? trim ($_POST['userName']) : '';

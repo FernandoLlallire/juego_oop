@@ -18,8 +18,6 @@ function saveUser ($post){
   return $userArray;
 }
 
-/* login lo que hace es tomar el valor del usuario en forma de array y lo guarda en la session
-el parametro de entrada esta definido de esta manera para poder ser trabajado junto con IsCookieSet*/
 /**
  * Funcion de login de usuarios
  *
@@ -36,23 +34,30 @@ function logIn ($user){
 }
 
 function saveCookie($user){
-  setcookie("user",hash("sha256" , $user["email"]));//Se usa un hasheo con hash por ahora por q en mysql se va a guardar la  hora de creacion para encryotar junto contras cosas
+  setcookie("user",hash("sha256" , $user["email"]),strtotime( '+30 days' ));//Se usa un hasheo con hash por ahora por q en mysql se va a guardar la  hora de creacion para encryotar junto contras cosas
 }
 function DeleteCokie(){
 	setcookie("user",'', time() - 10);
 }
-
-function isCookieSet (){
+/**
+ * Retorna el usuario obtenido desde la cookie
+ *
+ * esta funcion la vamos a usar para obtener el usuario desde la cookie, si bien todo el usuario esta definido en $_SESSION
+ * aca podemos obtenerlo para cuando la cookie esta seteada (le dijimos que nos recuerde) y entramos por primera vez en la pagina
+ *
+ * @param type sin parametros de entrada
+ * @return return false si no encontramos el usuario en la db, o retornamos el usuario si lo encontramos
+ */
+function getUserFromCookie (){
 	$return = false;
-	if (isset($_COOKIE["user"])){
-		$idCookie = $_COOKIE["user"];
-		$allUsers = getAllUsers();
-		foreach ($allUsers as $user) {
-			$idHasheado = hash("sha256" , $user["email"]);
-			if( $idHasheado ==  $idCookie){
-				unset($user['password']);
-				$return = true;
-			}
+	$idCookie = $_COOKIE["user"];
+	$allUsers = getAllUsers();
+	foreach ($allUsers as $user) {
+		$idHasheado = hash("sha256" , $user["email"]);
+		if( $idHasheado ==  $idCookie){
+			unset($user['password']);
+			$return = $user;
+			return $return;
 		}
 	}
 	return $return;

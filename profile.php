@@ -3,8 +3,11 @@
 require_once 'DataSanitization.php';
 require_once 'DataUpload.php';
 require_once 'header.php';
-session_start();
-if(!$_SESSION["user"]){
+if(isset($_COOKIE["user"])){
+  $user=getUserFromCookie();
+  $_SESSION["user"]=$user;
+}
+if(!isset($_SESSION["user"])){
     header('location: index.php');
     exit;
 }else {

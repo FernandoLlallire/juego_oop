@@ -1,9 +1,19 @@
 <?php
   require_once 'DataSanitization.php';
   require_once 'DataUpload.php';
-
+  require_once 'header.php';
+  if(isset($_COOKIE["user"])){
+    $user=getUserFromCookie();
+    if($user){
+      logIn($user["email"]);
+    }
+  }
+  if(isset($_SESSION["user"])){
+    header('location: profile.php');
+    exit;
+  }
   $email = isset ($_POST['email']) ? trim ($_POST['email']) : '';
-  $rememberMe = isset ($_POST["session"]) ? $_POST["session"] : "";
+  $rememberMe = isset ($_POST["session"]) ? $_POST["session"] : false;
   if ($_POST) {
     $errors = sanitizateAndValidateDataLogin($_POST);
     if(!$errors){
@@ -15,7 +25,7 @@
       }
     }
   }
-require_once 'header.php';
+
 
 
  ?>
