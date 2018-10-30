@@ -1,7 +1,6 @@
 <?php
-  require_once 'DataSanitization.php';
-  require_once 'DataUpload.php';
   require_once 'header.php';
+  require_once "clases/LoginFormValidator.php";
   if(isset($_COOKIE["user"])){
     $user=getUserFromCookie();
     if($user){
@@ -12,12 +11,11 @@
     header('location: profile.php');
     exit;
   }
-  $email = isset ($_POST['email']) ? trim ($_POST['email']) : '';
-  $rememberMe = isset ($_POST["session"]) ? $_POST["session"] : false;
+  $form = new LoginFormValidatorn($_POST);
   if ($_POST) {
-    $errors = sanitizateAndValidateDataLogin($_POST);
-    if(!$errors){
-      if ($rememberMe == true){
+    $form->sanitizateAndValidateData($_POST);
+    if(!$form->getAllErrors()){
+      if (getRemenberMe()){
         saveCookie($_POST);
         logIn($_POST);
       }else {
@@ -38,20 +36,20 @@
             <div class="row">
               <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                  <input type="email" name="email" class="form-control input-lg <?= isset($errors['email']) ? 'is-invalid' : ''; ?>" placeholder="Email" value="<?= $email ?>">
-                  <?php if (isset($errors['email'])): ?>
+                  <input type="email" name="email" class="form-control input-lg <?= $form->fieldHasError("email") ? 'is-invalid' : ''; ?>" placeholder="Email" value="<?= $form->getEmail() ?>">
+                  <?php if ($form->fieldHasError("email")): ?>
                     <div class="invalid-feedback">
-                      <?= $errors['email'] ?>
+                      <?= $form->getFieldError("email"); ?>
                     </div>
                   <?php endif; ?>
                 </div>
               </div>
               <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                  <input type="password" name="password" class="form-control input-lg <?= isset($errors['password']) ? 'is-invalid' : ''; ?>" placeholder="Contraseña">
-                  <?php if (isset($errors['password'])): ?>
+                  <input type="password" name="password" class="form-control input-lg <?= $form->fieldHasError("password") ? 'is-invalid' : ''; ?>" placeholder="Contraseña">
+                  <?php if ($form->fieldHasError("email")): ?>
                     <div class="invalid-feedback">
-                      <?= $errors['password'] ?>
+                      <?= $form->getFieldError("password"); ?>
                     </div>
                   <?php endif; ?>
                 </div>
