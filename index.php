@@ -2,6 +2,9 @@
   require_once 'header.php';
   require_once 'DataSanitization.php';
   require_once 'DataUpload.php';
+  if($auth-> isLogged()){
+    $theUser = db->getUserbyEmail($_SESSION['userEmail']);
+  }
   ?>
   <br>
   <br>

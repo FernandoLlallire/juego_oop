@@ -17,13 +17,7 @@ function saveUser ($post){
  *
  * @param array $user
  */
-function logIn ($user){
-	session_start();
 
-  $_SESSION['user'] = getUserbyEmail($user["email"]);
-  header('location: profile.php');
-  exit;
-}
 
 function saveCookie($user){
   setcookie("user",hash("sha256" , $user["email"]),strtotime( '+30 days' ));//Se usa un hasheo con hash por ahora por q en mysql se va a guardar la  hora de creacion para encryotar junto contras cosas
