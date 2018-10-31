@@ -1,11 +1,15 @@
-.omar-cont-Register{
+body{
+  /* background-color: #D0599F !important; */
+  /* font-family: 'Baloo Tammudu', cursive; */
+}
+.cont-Register{
   margin-top: 60px;
   display: flex;
   justify-content: center;
   height: auto;
   min-height: 80vh;
 }
-.omar-cont-Login{
+.cont-Login{
   margin-top: 60px;
   display: flex;
   justify-content: center;
@@ -14,39 +18,39 @@
   padding-bottom: 107px; CAMBIAR SOLO PARA QUE AFECTE AL LOGIN
 }
 
-.omar-formulario{
+.formulario{
   color: #FFF;
   /*font-family: 'Baloo Tammudu', cursive !important;*/
 }
-.omar-formulario h1{
+.formulario h1{
   margin-bottom: 10px;
 }
-.omar-formulario input, a{
+.formulario input, a{
   margin-top: 2px;
 }
 
-.omar-login{
+.login{
   margin: 5px 0;
 }
-.omar-register{
+.register{
   margin: 5px 0;
 }
-.omar-btnLRegister input{
-  color: #fff;
-  background-color: #3442C0;  //Paleta de colores delphi;
-  border-color: #FFF;/Paleta de colores delphi;
-}
-.omar-btnLLogin input{
+.btnLLogin input{
   color: #fff;
   background-color: #40D5E8;//Paleta de colores delphi;
   border-color: #9D45A3;//Paleta de colores delphi;
 }
-.omar-btnRLogin a{
+.btnLRegister input{
+  color: #fff;
+  background-color: #3442C0;  //Paleta de colores delphi;
+  border-color: #FFF;/Paleta de colores delphi;
+}
+.btnRLogin a{
   color: #fff;
   background-color: #40D5E8;//Paleta de colores delphi;
   border-color: #FFF;//Paleta de colores delphi;
 }
-.omar-btnRRegister a{
+.btnRRegister a{
   color: #fff;
   background-color: #3442C0;  //Paleta de colores delphi;
   border-color: #9D45A3;/Paleta de colores delphi;

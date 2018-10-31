@@ -1,4 +1,22 @@
-  <?php require_once 'header.php'; ?>
+<?php
+
+require_once 'DataSanitization.php';
+require_once 'DataUpload.php';
+require_once 'header.php';
+if(isset($_COOKIE["user"])){
+  $user=getUserFromCookie();
+  $_SESSION["user"]=$user;
+}
+if(!isset($_SESSION["user"])){
+    header('location: index.php');
+    exit;
+}else {
+  if(!isSessionValid()){
+    header('location: logout.php');
+    exit;
+  }
+}
+ ?>
   <link rel="stylesheet" href="css/css-delfi.css">
   <div class="container">
   	<div class="row">
