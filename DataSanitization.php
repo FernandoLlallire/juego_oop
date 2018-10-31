@@ -5,7 +5,7 @@ for all the chars that we dont allow we base in the indformation in this pages:
 https://openwebinars.net/blog/sanitizar-datos-en-php/
 https://stackoverflow.com/questions/5863508/php-sanitize-data
 http://php.net/manual/en/book.filter.php*/
-define ( "ERROR_EMPTY_NAME", "ingrese el nombre completo" );
+/*define ( "ERROR_EMPTY_NAME", "ingrese el nombre completo" );
 define ( "ERROR_EMPTY_firstName", "ingrese el nombre de usuario" );
 define ( "ERROR_EMPTY_SURNAME", "ingrese el apellido" );
 define ( "ERROR_INVALID_NAME", "Caracter invalido en el nombre, ingrese solo letras" );
@@ -24,7 +24,7 @@ define ( "ERROR_EXISTING_firstName", "El usuario ya esta registrado" );
 define ( "ERROR_LENGTH_PASSWORD", "La contraseña debe tener más de 4 caracteres" );
 define ("ERROR_NOT_VALID_USER", "Usuario No registrado");
 define ("ERROR_INVALID_PASSWORD", "Contraseña incorrecta");
-$forbidden_chars= [ "?","[","]","/","\\","=","<",">",":",";",",","'","\"","&","$","#","*","(",")" ,"|","~","`","!","{","}","%","+" ];
+$forbidden_chars= [ "?","[","]","/","\\","=","<",">",":",";",",","'","\"","&","$","#","*","(",")" ,"|","~","`","!","{","}","%","+" ];*/
 /*we allow the following special characters but no the ones in $forbidden_chars.
 the value by default is false if everything  is ok.*/
 function invalidChar($data){

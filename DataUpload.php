@@ -118,4 +118,13 @@ function dbug($dato){
 	var_dump($dato);
 	echo "</pre><br>";
 }
+function SaveImage($file){
+	$imgName = $file['name'];
+	$ext = pathinfo($imgName, PATHINFO_EXTENSION);
+	$temp_direction = $file['tmp_name'];
+	$fileName = uniqid('img_') .  '.' . $ext;
+	$finalDirectory = USER_IMAGE_PATH . $fileName;
+	move_uploaded_file($temp_direction, $finalDirectory);
+	return $fileName;
+}
  ?>

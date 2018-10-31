@@ -47,8 +47,8 @@ define ("ERROR_INVALID_PASSWORD", "Contraseña incorrecta");
 			$this->errors[$field] = $error;
 		}
 		public function invalidChar($data){
-			foreach ($forbidden_chars as $char) {
-				if(strpos($data,$value)){
+			foreach ($this->forbidden_chars as $char) {
+				if(strpos($data,$char)){
 					return true;
 				}
 			}

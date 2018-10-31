@@ -11,7 +11,7 @@
 		{
 			$this->email = isset($post['email']) ?  $post['email'] : '';
 			$this->password = isset($post['password']) ?  $post['password'] : '';
-			$this->$rememberMe = isset ($post["session"]) ? $post["session"] : false;
+			$this->rememberMe = isset ($post["session"]) ? $post["session"] : false;
 		}
 		public function sanitizateAndValidateData($post){
 			  if(empty($post["email"])){

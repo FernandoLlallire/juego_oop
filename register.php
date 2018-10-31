@@ -1,8 +1,8 @@
 <?php
   require_once 'header.php';
-  /*require_once 'DataSanitization.php';
-  require_once 'DataUpload.php';*/
-  require_once "clases/RegisterFormValidator.php";
+  require_once 'DataSanitization.php';
+  require_once 'DataUpload.php';
+  require_once "classes/RegisterFormValidator.php";
   if(isset($_COOKIE["user"])){
     $user=getUserFromCookie();
     if($user){
@@ -16,8 +16,8 @@
   $form = new RegisterFormValidator($_POST,$_FILES);
 
 if ($_POST) {
-  sanitizateAndValidateDataRegister($_POST, $_FILES);
-  if (!getAllErrors()){
+  $form->sanitizateAndValidateData($_POST, $_FILES);
+  if (!$form->getAllErrors()){
     $_POST["avatar"] = $_FILES["imagen"];//$_FILES es un array donde estan todos los archivos que subamos, en este caso mandamos todos los datos de nuestra imagen (nombre puesto en el label del input)
     // SaveImage::uploadImage($_FILES["imagen"]);
     saveUser($_POST);

@@ -1,6 +1,8 @@
 <?php
-  require_once 'header.php';
-  require_once "clases/LoginFormValidator.php";
+require_once 'header.php';
+require_once 'DataSanitization.php';
+require_once 'DataUpload.php';
+require_once "classes/LoginFormValidator.php";
   if(isset($_COOKIE["user"])){
     $user=getUserFromCookie();
     if($user){
@@ -11,11 +13,11 @@
     header('location: profile.php');
     exit;
   }
-  $form = new LoginFormValidatorn($_POST);
+  $form = new LoginFormValidator($_POST);
   if ($_POST) {
     $form->sanitizateAndValidateData($_POST);
     if(!$form->getAllErrors()){
-      if (getRemenberMe()){
+      if ($form->getRemenberMe()){
         saveCookie($_POST);
         logIn($_POST);
       }else {
