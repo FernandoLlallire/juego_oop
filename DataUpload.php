@@ -1,15 +1,7 @@
 <?php
 	define('USER_IMAGE_PATH', dirname(__FILE__) . "\\userimg\\");//ojo con la ruta por q es para windows
-	/*SaveImage nos permite guardar las fotos q subamos para el avatar. leer https://stackoverflow.com/questions/30358737/php-file-upload-error-tmp-name-is-empty por la limitacion del tamaño del archivo, por que si el archivo es muy grande no genera el tmp_name!!!*/
-function SaveImage($file){
-  $imgName = $file['name'];
-  $ext = pathinfo($imgName, PATHINFO_EXTENSION);
-  $temp_direction = $file['tmp_name'];
-  $fileName = uniqid('img_') .  '.' . $ext;
-  $finalDirectory = USER_IMAGE_PATH . $fileName;
-  move_uploaded_file($temp_direction, $finalDirectory);
-  return $fileName;
-}
+
+
 /*saveUser toda todo el array que viene del post (Recordar que le agregamos los datos del $_FILES en una posicon del array) y lo manda al json*/
 function saveUser ($post){
 	$userArray = userCreator($post);
