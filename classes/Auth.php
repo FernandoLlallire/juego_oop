@@ -6,7 +6,7 @@
     public function __construct()
     {
       session_start();
-      if( isset($_COOKIE['rememberUser']) ){
+      if( isset($_COOKIE['rememberUser']) ? !$this->isLogged()){
         $this->logIn($_COOKIE['rememberUser']);
       }
     }
@@ -69,6 +69,13 @@
       }
       return $return;
     }
+    public function logOut() {
+			session_destroy();
+			setcookie('rememberUser', '', time() - 10);
+			header('location: index.php');
+			exit;
+		}
+
   }
 
  ?>
