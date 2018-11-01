@@ -1,5 +1,5 @@
 <?php
-require_once 'header.php';
+require_once 'includes/header.php';
 require_once 'DataSanitization.php';
 require_once 'DataUpload.php';
 require_once "classes/LoginFormValidator.php";
@@ -13,6 +13,17 @@ require_once "classes/LoginFormValidator.php";
     header('location: profile.php');
     exit;
   }
+  //OJO esta no sé si va y quizás está mal. 1- ¿existe usuario? 2- ¿usuario existe, pero pass es incorrecta?
+  //3- ¿usuario y pass son correctos?
+  //if($auth-> isLogged()){
+    //header('location: profile.php');
+    //else
+    //if (isset($_POST['rememberUser'])){
+    //  setcookie('rememberUser', $_POST['userEmail'], time() + 3600);
+    //}
+    //$auth-> logIn($user->getEmail());
+  //}
+
   $form = new LoginFormValidator($_POST);
   if ($_POST) {
     $form->sanitizateAndValidateData($_POST);
@@ -57,7 +68,7 @@ require_once "classes/LoginFormValidator.php";
                 </div>
               </div>
               <div class="">
-                <label>Guardar Sesion<input type="checkbox" name="session" ></label>
+                <label>Guardar Sesion<input type="checkbox" name="rememberUser" ></label>
               </div>
             </div>
             <div class="row">
@@ -76,4 +87,4 @@ require_once "classes/LoginFormValidator.php";
       </div>
     </div>
   </section>
-  <?php require_once 'footer.php'; ?>
+  <?php require_once 'includes/footer.php'; ?>

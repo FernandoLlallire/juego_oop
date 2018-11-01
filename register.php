@@ -1,5 +1,5 @@
 <?php
-  require_once 'header.php';
+  require_once 'includes/header.php';
   require_once 'DataSanitization.php';
   require_once 'DataUpload.php';
   require_once "classes/RegisterFormValidator.php";
@@ -9,12 +9,12 @@
       logIn($user["email"]);
     }
   }
-  if(isset($_SESSION["user"])){
+  if($auth-> isLogged()){
     header('location: profile.php');
     exit;
   }
   $form = new RegisterFormValidator($_POST,$_FILES);
-
+//    $theUser = db->getUserByEmail($_SESSION['userEmail']);
 if ($_POST) {
   $form->sanitizateAndValidateData($_POST, $_FILES);
   if (!$form->getAllErrors()){
@@ -25,7 +25,8 @@ if ($_POST) {
       saveCookie($_POST);
       logIn($_POST);
     }else {
-      logIn($_POST);
+      //Login con el objeto Auth. Duda, acá no va crear todo el usuario?
+      $auth->logIn($user->getEmail());
     }
   }
 }
@@ -138,4 +139,4 @@ if ($_POST) {
     </div>
 
   </section>
-  <?php require_once 'footer.php'; ?>
+  <?php require_once 'includes/footer.php'; ?>
