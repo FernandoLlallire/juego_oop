@@ -17,11 +17,10 @@
     	$idCookie = $_COOKIE["user"];
     	$allUsers = getAllUsers();
     	foreach ($allUsers as $user) {
-    		$idHasheado = hash("sha256" , $user["email"]);
+    		$idHasheado = hash("sha256" , $user->email);
     		if( $idHasheado ==  $idCookie){
-    			unset($user['password']);
-    			$return = $user;
-    			return $return;
+    			$user->$password="";
+    			return $user;
     		}
     	}
     	return $return;
@@ -31,18 +30,17 @@
       if(isset($_COOKIE["user"])){
         $user = $this->getUserFromCookie();
         if($user){
-          $this->logIn($user["email"]);
+          $this->logIn($user->email);
         }
       }
       if($this->isLogged()){
-                // dbug($_SESSION['user']);exit;
         header('location: profile.php');
         exit;
       }
     }
     /*dbclass getUserbyEmail*/
-    public function logIn ($user){
-      $_SESSION['user'] = getUserbyEmail($user["email"]);
+    public function logIn ($email){
+      $_SESSION['user'] = $email;
       // dbug($_SESSION);exit;
       header('location: profile.php');
       exit;
