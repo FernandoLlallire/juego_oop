@@ -1,18 +1,8 @@
 <?php
-  require_once 'includes/header.php';
-  require_once 'DataSanitization.php';
-  require_once 'DataUpload.php';
-  require_once "classes/RegisterFormValidator.php";
-  if(isset($_COOKIE["user"])){
-    $user=getUserFromCookie();
-    if($user){
-      logIn($user["email"]);
-    }
-  }
-  if($auth-> isLogged()){
-    header('location: profile.php');
-    exit;
-  }
+require_once "autoload.php";
+
+  $auth->isUserAlreadyLogged();
+
   $form = new RegisterFormValidator($_POST,$_FILES);
 //    $theUser = db->getUserByEmail($_SESSION['userEmail']);
 if ($_POST) {
@@ -20,13 +10,14 @@ if ($_POST) {
   if (!$form->getAllErrors()){
     $_POST["avatar"] = $_FILES["imagen"];//$_FILES es un array donde estan todos los archivos que subamos, en este caso mandamos todos los datos de nuestra imagen (nombre puesto en el label del input)
     // SaveImage::uploadImage($_FILES["imagen"]);
+    /*dbclass saveUser*/
     saveUser($_POST);
-    if ($rememberMe == true){
-      saveCookie($_POST);
-      logIn($_POST);
+    if ($form->getRememberMe() == true){
+      $auth->saveCookie($_POST);
+      $auth->logIn($_POST);
     }else {
       //Login con el objeto Auth. Duda, acá no va crear todo el usuario?
-      $auth->logIn($user->getEmail());
+      $auth->logIn($_POST);
     }
   }
 }

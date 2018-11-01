@@ -4,7 +4,7 @@ require_once 'DataSanitization.php';
 require_once 'DataUpload.php';
 require_once 'includes/header.php';
 if(isset($_COOKIE["user"])){
-  $user=getUserFromCookie();
+  $user=$auth->getUserFromCookie();
   $_SESSION["user"]=$user;
 }
 if(!isset($_SESSION["user"])){

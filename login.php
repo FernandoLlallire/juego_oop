@@ -1,18 +1,8 @@
 <?php
-require_once 'includes/header.php';
-require_once 'DataSanitization.php';
-require_once 'DataUpload.php';
-require_once "classes/LoginFormValidator.php";
-  if(isset($_COOKIE["user"])){
-    $user=getUserFromCookie();
-    if($user){
-      logIn($user["email"]);
-    }
-  }
-  if(isset($_SESSION["user"])){
-    header('location: profile.php');
-    exit;
-  }
+  require_once "autoload.php";
+
+  $auth->isUserAlreadyLogged();
+
   //OJO esta no sé si va y quizás está mal. 1- ¿existe usuario? 2- ¿usuario existe, pero pass es incorrecta?
   //3- ¿usuario y pass son correctos?
   //if($auth-> isLogged()){
@@ -29,10 +19,10 @@ require_once "classes/LoginFormValidator.php";
     $form->sanitizateAndValidateData($_POST);
     if(!$form->getAllErrors()){
       if ($form->getRemenberMe()){
-        saveCookie($_POST);
-        logIn($_POST);
+        $auth->saveCookie($_POST);
+        $auth->logIn($_POST);
       }else {
-        logIn($_POST);
+        $auth->logIn($_POST);
       }
     }
   }

@@ -87,4 +87,7 @@
     public function getAvatar(){
       return $this->avatar;
     }
+		public function getRememberMe(){
+			return $this->rememberMe;
+		}
 	}
