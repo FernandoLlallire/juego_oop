@@ -19,9 +19,11 @@
     $form->sanitizateAndValidateData($_POST);
     if(!$form->getAllErrors()){
       if ($form->getRemenberMe()){
+        dbug("tiene remember");exit;
         $auth->saveCookie($_POST);
         $auth->logIn($_POST);
       }else {
+        dbug("no tiene remember");exit;
         $auth->logIn($_POST);
       }
     }

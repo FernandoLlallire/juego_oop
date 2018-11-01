@@ -114,7 +114,7 @@ if ($_POST) {
             <input type="file" name="imagen" ><br>
           </div>
           <div class="">
-            <label>Guardar Sesion<input type="checkbox" name="session" ></label>
+            <label>Guardar Sesion<input type="checkbox" name="rememberUser" ></label>
           </div>
           <div class="row">
             <div class="col-xs-12 col-md-12 register btnRRegister">

@@ -1,12 +1,11 @@
 <?php
 
-require_once 'DataSanitization.php';
-require_once 'DataUpload.php';
-require_once 'includes/header.php';
+require_once "autoload.php";
 if(isset($_COOKIE["user"])){
   $user=$auth->getUserFromCookie();
   $_SESSION["user"]=$user;
 }
+
 if(!isset($_SESSION["user"])){
     header('location: index.php');
     exit;
@@ -26,17 +25,17 @@ if(!isset($_SESSION["user"])){
   <div class="container">
   	<div class="row">
   		<div class="col-lg-3 col-sm-6">
-        <h2>¡Hola, <?= $theUser->getName()!?></h2>
+        <!-- <h2>¡Hola, < $theUser->getName()?></h2> -->
               <div class="card hovercard">
                   <div class="cardheader">
 
                   </div>
                   <div class="avatar">
-                      <img alt="" src="/userimg/ <?= $theUser->getImage()?>>
+                      <!-- <img alt="" src="/userimg/ < $theUser->getImage()?>> -->
                   </div>
                   <div class="info">
                       <div class="title">
-                          <a target="_blank"><?= $theUser->getName()?></a>
+                          <!-- <a target="_blank">< $theUser->getName()?></a> -->
                       </div>
                       <div class="desc">Diseñador gráfico</div>
                       <div class="desc">Futbolista amateur</div>

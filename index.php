@@ -1,7 +1,6 @@
 <?php
-  require_once 'header.php';
-  require_once 'DataSanitization.php';
-  require_once 'DataUpload.php';
+require_once "autoload.php";
+
   if($auth->isLogged()){
     /*dbclass getUserbyEmail*/
     $theUser = getUserbyEmail($_SESSION['userEmail']);

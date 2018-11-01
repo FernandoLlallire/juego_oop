@@ -23,7 +23,7 @@
       $this->repassword = isset ( $post["repassword"] ) ?  $post["repassword"] : "";*/
       $this->country = isset ( $post["country"] ) ? $post["country"] : "";
       $this->avatar = isset ( $files["avatar"] ) ? $files["avatar"] : "";
-			$this->rememberMe = isset ($_POST["session"]) ? $_POST["session"] : "";
+			$this->rememberMe = isset ($_POST["rememberUser"]) ? $_POST["rememberUser"] : false;
 		}
 
 		public function sanitizateAndValidateData($post,$file){

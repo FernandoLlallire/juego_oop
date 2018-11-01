@@ -27,21 +27,23 @@
     	return $return;
     }
 
-public function isUserAlreadyLogged(){
-  if(isset($_COOKIE["user"])){
-    $user = $auth->getUserFromCookie();
-    if($user){
-      $auth->logIn($user["email"]);
+    public function isUserAlreadyLogged(){
+      if(isset($_COOKIE["user"])){
+        $user = $this->getUserFromCookie();
+        if($user){
+          $this->logIn($user["email"]);
+        }
+      }
+      if($this->isLogged()){
+                // dbug($_SESSION['user']);exit;
+        header('location: profile.php');
+        exit;
+      }
     }
-  }
-  if($auth->isLogged()){
-    header('location: profile.php');
-    exit;
-  }
-}
     /*dbclass getUserbyEmail*/
     public function logIn ($user){
       $_SESSION['user'] = getUserbyEmail($user["email"]);
+      // dbug($_SESSION);exit;
       header('location: profile.php');
       exit;
     }
@@ -50,21 +52,23 @@ public function isUserAlreadyLogged(){
       return isset($_SESSION['user']);
     }
     public function saveCookie($user){
+      // dbug($user);exit;
       setcookie("user",hash("sha256" , $user["email"]),strtotime( '+30 days' ));//Se usa un hasheo con hash por ahora por q en mysql se va a guardar la  hora de creacion para encryotar junto contras cosas
     }
+    /*dbclass getAllUsers*/
+    public function isSessionValid(){
+      $email=$_SESSION["user"]["email"];
+      $return = false;
+      $allUsers = getAllUsers();
+      foreach ($allUsers as $user) {
+        if ( $user["email"] == $email ) {
+          unset($user["password"]);
+          $return = true;
+          return $return;
+        }
+      }
+      return $return;
+    }
   }
-  /*dbclass getAllUsers*/
-  function isSessionValid(){
-  	$email=$_SESSION["user"]["email"];
-  	$return = false;
-  	$allUsers = getAllUsers();
-  	foreach ($allUsers as $user) {
-  		if ( $user["email"] == $email ) {
-  			unset($user["password"]);
-  			$return = true;
-  			return $return;
-  		}
-  	}
-  	return $return;
-  }
+
  ?>

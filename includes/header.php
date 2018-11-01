@@ -1,7 +1,3 @@
-<?php
-/*Esto es necesario obligatoriamente por que hacemos uso del session en el navbar si no no podriamos usar el $_SESSION*/
-session_start(); ?>
-
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -45,6 +41,7 @@ session_start(); ?>
           echo "<a class='nav-link' href=$url>$opcion</a>";
           echo "</li>";
       }
+// dbug($_COOKIE);
       ?>
     </ul>
   </div>
