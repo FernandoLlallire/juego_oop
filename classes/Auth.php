@@ -9,40 +9,40 @@
       if( isset($_COOKIE['rememberUser']) ? !$this->isLogged()){
         $this->logIn($_COOKIE['rememberUser']);
       }
+
     }
 
     /*dbclass getAllUsers*/
-    public function getUserFromCookie (){
+    public function getUserFromCookie ($userModel){
     	$return = false;
     	$idCookie = $_COOKIE["user"];
-    	$allUsers = getAllUsers();
+    	$allUsers = $userModel->getAllUsers();
     	foreach ($allUsers as $user) {
-    		$idHasheado = hash("sha256" , $user["email"]);
+    		$idHasheado = hash("sha256" , $user->email);
     		if( $idHasheado ==  $idCookie){
-    			unset($user['password']);
-    			$return = $user;
-    			return $return;
+    			// $user->$password="";
+    			return $user;
     		}
     	}
     	return $return;
     }
 
-    public function isUserAlreadyLogged(){
+    public function isUserAlreadyLogged($userModel){
       if(isset($_COOKIE["user"])){
-        $user = $this->getUserFromCookie();
+        $user = $this->getUserFromCookie($userModel);
         if($user){
-          $this->logIn($user["email"]);
+          $this->logIn($user->email);
         }
       }
       if($this->isLogged()){
-                // dbug($_SESSION['user']);exit;
         header('location: profile.php');
         exit;
       }
     }
+
     /*dbclass getUserbyEmail*/
     public function logIn ($user){
-      $_SESSION['user'] = getUserbyEmail($user["email"]);
+      $_SESSION['user'] = $user["email"];
       // dbug($_SESSION);exit;
       header('location: profile.php');
       exit;
@@ -51,23 +51,15 @@
     public function isLogged(){
       return isset($_SESSION['user']);
     }
+
     public function saveCookie($user){
       // dbug($user);exit;
       setcookie("user",hash("sha256" , $user["email"]),strtotime( '+30 days' ));//Se usa un hasheo con hash por ahora por q en mysql se va a guardar la  hora de creacion para encryotar junto contras cosas
     }
     /*dbclass getAllUsers*/
-    public function isSessionValid(){
-      $email=$_SESSION["user"]["email"];
-      $return = false;
-      $allUsers = getAllUsers();
-      foreach ($allUsers as $user) {
-        if ( $user["email"] == $email ) {
-          unset($user["password"]);
-          $return = true;
-          return $return;
-        }
-      }
-      return $return;
+    public function isSessionValid($userModel){
+      $email = $_SESSION["user"];
+      return $userModel->IsRegister($email,"email");
     }
     public function logOut() {
 			session_destroy();

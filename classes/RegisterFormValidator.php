@@ -12,56 +12,57 @@
     private $country;
     private $avatar;
 		private $rememberMe;
-
+		private $userModel;
 		public function __construct($post, $files)
 		{
       $this->firstName = isset ( $post["firstName"] ) ? $post["firstName"] : "";
       $this->lastName = isset ( $post["lastName"] )  ? $post["lastName"] : "";
       $this->userName = isset ( $post["userName"] )  ? $post["userName"] : "";
       $this->email = isset ( $post["email"] ) ? $post["email"] : "";
-      /*$this->password = isset ( $post["password"] )  ? $post["password"] : "";
-      $this->repassword = isset ( $post["repassword"] ) ?  $post["repassword"] : "";*/
+      $this->password = isset ( $post["password"] )  ? $post["password"] : "";
+      $this->rePassword = isset ( $post["rePassword"] ) ?  $post["rePassword"] : "";
       $this->country = isset ( $post["country"] ) ? $post["country"] : "";
       $this->avatar = isset ( $files["avatar"] ) ? $files["avatar"] : "";
 			$this->rememberMe = isset ($_POST["rememberUser"]) ? $_POST["rememberUser"] : false;
+			$this->userModel = new DbMySql(DB_HOST, DB_NAME, DB_USER, DB_PASS);
 		}
 
-		public function sanitizateAndValidateData($post,$file){
+		public function sanitizateAndValidateData(){
 
-			empty($post["firstName"]) ? $this->addError("firstName", ERROR_EMPTY_NAME) : ( $this->invalidChar(trim($post["firstName"])) ? $this->addError("firstName", ERROR_INVALID_NAME) : "" );
-		  empty($post["lastName"]) ? $this->addError("lastName",ERROR_EMPTY_SURNAME) : ( $this->invalidChar(trim($post["lastName"])) ? $this->addError("lastName", ERROR_INVALID_NAME) : "" );
-		  if (empty($post["userName"])){
+			empty($this->firstName) ? $this->addError("firstName", ERROR_EMPTY_NAME) : ( $this->invalidChar(trim($this->firstName)) ? $this->addError("firstName", ERROR_INVALID_NAME) : "" );
+		  empty($this->lastName) ? $this->addError("lastName",ERROR_EMPTY_SURNAME) : ( $this->invalidChar(trim($this->lastName)) ? $this->addError("lastName", ERROR_INVALID_NAME) : "" );
+		  if (empty($this->userName)){
 				$this->addError("userName",ERROR_EMPTY_firstName);
-		  }elseif ($this->invalidChar(trim($post["userName"]))) {
+		  }elseif ($this->invalidChar(trim($this->userName))) {
 				$this->addError("userName",ERROR_INVALID_firstName);
-		  }elseif (isRegister($post["userName"], "userName")) {
+		  }elseif ($this->userModel->isRegister($this->userName,"userName")) {
 				$this->addError("userName",ERROR_EXISTING_firstName);
 		  }
 
-		  empty($post["country"]) ? $this->addError("country",ERROR_EMPTY_COUNTRY) : "";
+		  empty($this->country) ? $this->addError("country",ERROR_EMPTY_COUNTRY) : "";
 
-		  $archivo = (isset($file["imagen"]) ? $file["imagen"] : "");
+		  $archivo = (isset($this->avatar) ? $this->avatar : "");
 		  if (isset($archivo["error"])) {
 		    if($archivo["error"] !== UPLOAD_ERR_OK){
-					$this->addError("imagen",ERROR_EMPTY_FILE);
+					$this->addError("avatar",ERROR_EMPTY_FILE);
 		   } elseif ( !in_array ( pathinfo($archivo['name'], PATHINFO_EXTENSION), VALID_EXTENSION ) ) {/*pathinfo junto con PATHINFO_EXTENSION nos devuelve la extension de la imagen q es apuntado en $_FILES[name] y por ultimo con el in_array nos fijamos si esta dentro del array de formatos permitidos.*/
-				 $this->addError("imagen",ERROR_EXTENSION_FILE);
+				 $this->addError("avatar",ERROR_EXTENSION_FILE);
 		   }
 		  }
 
-		  if(empty($post["email"])){
+		  if(empty($this->email)){
 				$this->addError("email",ERROR_EMPTY_MAIL);
-		  } elseif (!filter_var($post["email"], FILTER_VALIDATE_EMAIL)) {
+		  } elseif (!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
 		    $this->addError("email",ERROR_INVALID_MAIL);
-		  } elseif (isRegister($post["email"],"email")) {
+		  } elseif ($this->userModel->isRegister($this->email,"email")) {
 				$this->addError("email",ERROR_EXISTING_MAIL);
 		  }
 
-		  if ( empty($post["password"]) || empty($post["rePassword"]) ) {
+		  if ( empty($this->password) || empty($this->rePassword) ) {
 				$this->addError("password",ERROR_EMPTY_PASSWORD);
-		  } elseif ( $post["password"] !== $post["rePassword"]) { //stackoverflow aconseja que usemos el tipo de comparacion sin el tipo. y no el strcmp por ese tiene mas tiempo de ejecucion
+		  } elseif ( $this->password !== $this->rePassword) { //stackoverflow aconseja que usemos el tipo de comparacion sin el tipo. y no el strcmp por ese tiene mas tiempo de ejecucion
 				$this->addError("password",ERROR_DIFERENT_PASSWORD);
-		  } elseif ( strlen($post["password"]) < 4 || strlen($post["rePassword"]) < 4 ) {
+		  } elseif ( strlen($this->password) < 4 || strlen($this->rePassword) < 4 ) {
 				$this->addError("password",ERROR_LENGTH_PASSWORD);
 		  }
 		}

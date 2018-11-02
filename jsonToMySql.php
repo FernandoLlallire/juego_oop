@@ -1,11 +1,13 @@
 <?php
-// if($_POST){
-//   $json=file_get_contents("db\\db.json");
-//   $obj=json_decode($json);
-//   var_dump($obj);//Aca va la funcion de la base de datos a la cual le pasamos el objeto de json
-// }
-session_start();
-// ?>
+ require_once "autoload.php";
+  $field="";
+  $value='fer2';
+  $stmt = $userModel->getConnection()->prepare("SELECT * FROM users where userName=:value");
+  $stmt -> bindValue(":value",$value,PDO::PARAM_STR);
+  $stmt->execute();
+  dbug($stmt);
+dbug($stmt->fetchall(PDO::FETCH_OBJ));
+ ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>

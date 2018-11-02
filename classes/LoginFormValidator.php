@@ -6,24 +6,26 @@
 		private $email;
 		private $password;
 		private $rememberMe;
+		private $userModel;
 
-		public function __construct($post)
+		public function __construct($post,$userModel)
 		{
 			$this->email = isset($post['email']) ?  $post['email'] : '';
 			$this->password = isset($post['password']) ?  $post['password'] : '';
 			$this->rememberMe = isset ($post["rememberUser"]) ? $post["rememberUser"] : false;
+			$this->userModel = $userModel;
 		}
-		public function sanitizateAndValidateData($post){
-			  if(empty($post["email"])){
+		public function sanitizateAndValidateData(){
+			  if(empty($this->email)){
 			    $this->addError("email", ERROR_EMPTY_MAIL);
-			  } elseif (!filter_var($post["email"], FILTER_VALIDATE_EMAIL)) {
+			  } elseif (!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
 			    $this->addError("email", ERROR_INVALID_MAIL);
-			  } elseif(!isRegister($post["email"],"email")){
+			  } elseif(!$this->userModel->isRegister($this->email,"email")){
 			    $this->addError("email", ERROR_NOT_VALID_USER);
-			  } elseif ( empty($post["password"]) ) {
+			  } elseif ( empty($this->password) ) {
 			    $this->addError("password", ERROR_EMPTY_PASSWORD);
 			  } else {
-			    if (!isRegisterPassword($post)){
+			    if (!$this->userModel->isRegisterPassword($this->email, $this->password)){
 						$this->addError("password", ERROR_INVALID_PASSWORD);
 			    }
 			  }

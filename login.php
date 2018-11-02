@@ -1,7 +1,7 @@
 <?php
   require_once "autoload.php";
 
-  $auth->isUserAlreadyLogged();
+  $auth->isUserAlreadyLogged($userModel);
 
   //OJO esta no sé si va y quizás está mal. 1- ¿existe usuario? 2- ¿usuario existe, pero pass es incorrecta?
   //3- ¿usuario y pass son correctos?
@@ -14,9 +14,9 @@
     //$auth-> logIn($user->getEmail());
   //}
 
-  $form = new LoginFormValidator($_POST);
+  $form = new LoginFormValidator($_POST,$userModel);
   if ($_POST) {
-    $form->sanitizateAndValidateData($_POST);
+    $form->sanitizateAndValidateData();
     if(!$form->getAllErrors()){
       if ($form->getRemenberMe()){
         // dbug("tiene remember");exit;
@@ -28,9 +28,6 @@
       }
     }
   }
-
-
-
  ?>
   <section class="container cont-Login">
     <div class="row login">
