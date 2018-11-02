@@ -13,7 +13,7 @@ require_once "classes\\Auth.php";
 	require_once "classes\\LoginFormValidator.php";
 	require_once "classes\\SaveImage.php";
 
-	// require_once "includes\\header.php";
+	require_once "includes\\header.php";
 
 	// require_once 'clases/Connection.php';
 	// require_once 'clases/MoviesModel.php';

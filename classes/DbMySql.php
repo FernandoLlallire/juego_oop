@@ -46,7 +46,7 @@ class DbMySql extends DB{
 
   public function saveUser ($post){
     $avatar = SaveImage::save($post['avatar']);
-    $password = password_hash($user['password'], PASSWORD_DEFAULT);
+    $password = password_hash($post['password'], PASSWORD_DEFAULT);
     $stmt = $this->conn->prepare("
       INSERT INTO users (
         firstName,
@@ -84,15 +84,7 @@ class DbMySql extends DB{
     $stmt -> bindValue(":email", $email, PDO::PARAM_STR);
     $stmt -> execute();
     $result = $stmt -> fetch(PDO::FETCH_OBJ);
-    dbug($password);
-    dbug($result->password);
-  dbug  (password_verify ($password,$result->password));exit;
-    if (password_verify ($password,$result->password)) {
-      echo("si es ");exit;
-      return true;
-    }
-    echo("no es ");exit;
-    return false;
+    return password_verify ($password,$result->password);
   }
 
   public function getUserByEmail(){
