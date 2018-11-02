@@ -6,10 +6,9 @@
     public function __construct()
     {
       session_start();
-      if( isset($_COOKIE['rememberUser']) ? !$this->isLogged()){
+      if( isset($_COOKIE['rememberUser']) ){
         $this->logIn($_COOKIE['rememberUser']);
       }
-
     }
 
     /*dbclass getAllUsers*/

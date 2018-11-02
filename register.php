@@ -4,7 +4,7 @@ require_once "autoload.php";
   $auth->isUserAlreadyLogged($userModel);
 
   $form = new RegisterFormValidator($_POST,$_FILES,$userModel);
-//    $theUser = db->getUserByEmail($_SESSION['userEmail']);
+//    $theUser = db->getUserByEmail($_SESSION['email']);
 if ($_POST) {
   $form->sanitizateAndValidateData();
   if (!$form->getAllErrors()){

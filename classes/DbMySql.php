@@ -44,6 +44,16 @@ class DbMySql extends DB{
     return $stmt->rowCount();
   }
 
+  public function isEmpty(){
+    $stmt = $this->conn->prepare("SELECT * FROM users");
+    $stmt->execute();
+    if($stmt->rowCount() == 0){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
   public function saveUser ($post){
     $avatar = SaveImage::save($post['avatar']);
     $password = password_hash($post['password'], PASSWORD_DEFAULT);
@@ -87,7 +97,43 @@ class DbMySql extends DB{
     return password_verify ($password,$result->password);
   }
 
-  public function getUserByEmail(){
+  public function getUserByEmail($email){
+    $stmt = $this->conn->prepare("SELECT * FROM users where email=:email");
+    $stmt -> bindValue(":email",$email,PDO::PARAM_STR);
+    $stmt->execute();
+    return  $stmt->fetchAll(PDO::FETCH_OBJ);
+  }
 
+  public function jsonToMySql ($firstName, $lastName, $userName, $email, $password, $country, $avatar){
+    $stmt = $this->conn->prepare("
+      INSERT INTO users (
+        firstName,
+        lastName,
+        userName,
+        email,
+        password,
+        country,
+        avatar
+      )
+      VALUES (
+        :firstName,
+        :lastName,
+        :userName,
+        :email,
+        :password,
+        :country,
+        :avatar
+      )
+    ");
+
+    $stmt->bindValue(":firstName", $firstName, PDO::PARAM_STR);
+    $stmt->bindValue(":lastName", $lastName, PDO::PARAM_STR);
+    $stmt->bindValue(":userName", $userName, PDO::PARAM_STR);
+    $stmt->bindValue(":email", $email, PDO::PARAM_STR);
+    $stmt->bindValue(":password", $password, PDO::PARAM_STR);
+    $stmt->bindValue(":country",  $country, PDO::PARAM_STR);
+    $stmt->bindValue(":avatar", $avatar, PDO::PARAM_STR);
+
+    $stmt->execute();
   }
 }
