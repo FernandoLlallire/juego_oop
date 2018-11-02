@@ -16,32 +16,26 @@ if(!isset($_SESSION["user"])){
     exit;
   }
 }
-  $user = getUserByEmail($_SESSION['user']);
-	$classUser = new User($_SESSION,$userModel);
+  $user = $userModel->getUserByEmail($_SESSION['user']);
+	$theUser = new User($user);
 
-
-
-//OJO con esto
-//if(!$auth-> isLogged()){
-  //header('location: profile.php');
-  //exit;
-//}
  ?>
   <link rel="stylesheet" href="css/css-delfi.css">
   <div class="container">
   	<div class="row">
   		<div class="col-lg-3 col-sm-6">
-        <!-- <h2>¡Hola, < $theUser->getName()?></h2> -->
+        <br><br><br>
+        <h2>¡Hola, <?= $theUser->getName()?></h2>
               <div class="card hovercard">
                   <div class="cardheader">
 
                   </div>
                   <div class="avatar">
-                      <!-- <img alt="" src="/userimg/ < $theUser->getImage()?>> -->
+                      <img alt="" src="userimg/<?= $theUser->getImage()?>">
                   </div>
                   <div class="info">
                       <div class="title">
-                          <!-- <a target="_blank">< $theUser->getName()?></a> -->
+                          <a target="_blank"><?= $theUser->getName()?></a>
                       </div>
                       <div class="desc">Diseñador gráfico</div>
                       <div class="desc">Futbolista amateur</div>

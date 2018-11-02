@@ -1,27 +1,31 @@
 <?php
 	class User
 	{
-		private $id;
-		private $name;
+
+		private $firstName;
+		private $lastName;
+		private $userName;
 		private $email;
-		private $password;
 		private $country;
-		private $image;
-		public function __construct($post)
+		private $avatar;
+
+		public function __construct($user)
 		{
-			$this->name = $post['name'];
-			$this->email = $post['email'];
-			$this->password = $post['password'];
-			$this->country = $post['country'];
-			$this->image = $post['image'];
+			$this->firstName = $user->firstName;
+			$this->lastName = $user->lastName;
+			$this->userName = $user->userName;
+			$this->email = $user->email;
+			$this->country = $user->country;
+			$this->avatar = $user->avatar;
+
 		}
-		public function setName($name)
+		public function setName($firstName)
 		{
-			$this->name = $name;
+			$this->firstName = $firstName;
 		}
 		public function getName()
 		{
-			return $this->name;
+			return $this->firstName;
 		}
 		public function setEmail($email)
 		{
@@ -30,14 +34,6 @@
 		public function getEmail()
 		{
 			return $this->email;
-		}
-		public function getPassword()
-		{
-			return $this->password;
-		}
-		public function setPassword($password)
-		{
-			$this->password = $password;
 		}
 		public function getCountry()
 		{
@@ -48,28 +44,9 @@
 			$this->country = $country;
 		}
 		public function getImage() {
-			return $this->image;
+			return $this->avatar;
 		}
-		public function setImage($image)
-		{
-			$this->image = $image;
-		}
-		public function setId($id)
-		{
-			$this->id = $id;
-		}
-		public function hashPassword()
-		{
-			return password_hash($this->password, PASSWORD_DEFAULT);
-		}
-		public function exportUserData(){
-			return [
-				'id' => $this->id,
-				'name' => $this->name,
-				'email' => $this->email,
-				'password' => $this->hashPassword($this->password),
-				'country' => $this->country,
-				'image' => $this->image,
-			];
+		public function setImage($avatar){
+			$this->avatar = $avatar;
 		}
 	}

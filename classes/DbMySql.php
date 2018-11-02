@@ -101,7 +101,7 @@ class DbMySql extends DB{
     $stmt = $this->conn->prepare("SELECT * FROM users where email=:email");
     $stmt -> bindValue(":email",$email,PDO::PARAM_STR);
     $stmt->execute();
-    return  $stmt->fetchAll(PDO::FETCH_OBJ);
+    return  $stmt->fetch(PDO::FETCH_OBJ);
   }
 
   public function jsonToMySql ($firstName, $lastName, $userName, $email, $password, $country, $avatar){
