@@ -1,6 +1,15 @@
 <?php
  require_once "autoload.php";
-
+/*		public function exportUserData(){
+			return [
+				'id' => $this->id,
+				'name' => $this->name,
+				'email' => $this->email,
+				'password' => $this->hashPassword($this->password),
+				'country' => $this->country,
+				'image' => $this->image,
+			];
+		}*/
  if($userModel->isEmpty()){
    if($_POST){
      $allDataJson = file_get_contents('db/db.json');//abrimos el archivo y obtenemos el contenido, pero en forma un string gigante
