@@ -1,4 +1,5 @@
 <?php
+
 /*this file containg all the funtions that we implemento to sanitizate all the data that came from login and register.
 we dont considere the sql inyection because we work with a json file.
 for all the chars that we dont allow we base in the indformation in this pages:
@@ -123,4 +124,4 @@ function IsRegisterPassword ($post) {
   }
   return $return;
 }
- ?>
+?>

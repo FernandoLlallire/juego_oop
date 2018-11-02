@@ -2,6 +2,9 @@
 require_once 'header.php';
 require_once 'DataSanitization.php';
 require_once 'DataUpload.php';
+require_once 'UsersMySql.php';
+
+$db = new UsersMySql('Habitos_db');
 
 if(isset($_COOKIE["user"])){
   $user=getUserFromCookie();
