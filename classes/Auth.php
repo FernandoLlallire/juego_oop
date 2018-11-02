@@ -60,9 +60,10 @@
       $email = $_SESSION["user"];
       return $userModel->IsRegister($email,"email");
     }
+
     public function logOut() {
 			session_destroy();
-			setcookie('rememberUser', '', time() - 10);
+			setcookie('user', '', time() - 10);
 			header('location: index.php');
 			exit;
 		}
