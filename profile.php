@@ -16,6 +16,11 @@ if(!isset($_SESSION["user"])){
     exit;
   }
 }
+  $user = getUserByEmail($_SESSION['user']);
+	$classUser = new User($_SESSION,$userModel);
+
+
+
 //OJO con esto
 //if(!$auth-> isLogged()){
   //header('location: profile.php');
