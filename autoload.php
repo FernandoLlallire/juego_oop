@@ -1,10 +1,8 @@
 <?php
-	define('DB_HOST', 'localhost');
-	define('DB_NAME', 'habitos_db');
-	define('DB_USER', 'root');
-	define('DB_PASS', '');
+
 /*CLAVE CAMBIAR LAS RUTAS DEPENDIENDO DEL SO
 PARA WINDOWS SE USA LA CONTRABARRA PERO PARA LINUX ES LA BARRA NORMAL*/
+	require_once "define.php";
 	require_once "classes\\Auth.php";
 	$auth = new Auth();
 	require_once "classes\\RegisterFormValidator.php";
