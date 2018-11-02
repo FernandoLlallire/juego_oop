@@ -4,20 +4,20 @@
 		private $id;
 		private $lastName;
     private $firstName;
-    private $username;
+    private $userName;
 		private $email;
 		private $password;
 		private $country;
 		private $image;
-		public function __construct($post)
+		public function __construct($data)
 		{
-			$this->lastname = $post['firstName'];
-      $this->lastname = $post['lastName'];
-      $this->lastname = $post['userName'];
-			$this->email = $post['email'];
-			$this->password = $post['password'];
-			$this->country = $post['country'];
-			$this->image = $post['image'];
+			$this->lastname = $data['firstName'];
+      $this->lastname = $data['lastName'];
+      $this->lastname = $data['userName'];
+			$this->email = $data['email'];
+			$this->password = $data['password'];
+			$this->country = $data['country'];
+			$this->image = $data['image'];
 		}
 		public function setFirstName($firstName)
 		{
@@ -76,8 +76,9 @@
 		{
 			$this->id = $id;
 		}
-		public function hashPassword()
-		{
-			return password_hash($this->password, PASSWORD_DEFAULT);
-		}
+		//Por el momento el hasheo se realiza en saveUser()
+		// public function hashPassword()
+		// {
+		// 	return password_hash($this->password, PASSWORD_DEFAULT);
+		// }
 	}

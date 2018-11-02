@@ -1,5 +1,6 @@
 <?php
-	require_once 'FormValidator.php';
+    require_once 'FormValidator.php';
+    
     class RegisterFormValidator extends FormValidator
     {
         private $firstName;
@@ -23,14 +24,15 @@
             $this->avatar = isset ( $files["avatar"] ) ? $files["avatar"] : "";
             $this->rememberMe = isset ($_POST["rememberUser"]) ? $_POST["rememberUser"] : false;
         }
-        public function sanitizateAndValidateData($post,$file){
+        public function sanitizateAndValidateData($post, $file, $db){
             empty($post["firstName"]) ? $this->addError("firstName", ERROR_EMPTY_NAME) : ( $this->invalidChar(trim($post["firstName"])) ? $this->addError("firstName", ERROR_INVALID_NAME) : "" );
             empty($post["lastName"]) ? $this->addError("lastName",ERROR_EMPTY_SURNAME) : ( $this->invalidChar(trim($post["lastName"])) ? $this->addError("lastName", ERROR_INVALID_NAME) : "" );
             if (empty($post["userName"])){
-                $this->addError("userName",ERROR_EMPTY_firstName);
+                $this->addError("userName",ERROR_EMPTY_firstName);//No seria userName?
             }elseif ($this->invalidChar(trim($post["userName"]))) {
                 $this->addError("userName",ERROR_INVALID_firstName);
-            }elseif (isRegister($post["userName"], "userName")) {
+            }
+            elseif ($db->isRegister($post["userName"], "user_nickname")) {
                 $this->addError("userName",ERROR_EXISTING_firstName);
             }
 
@@ -40,22 +42,21 @@
             if (isset($archivo["error"])) {
                 if($archivo["error"] !== UPLOAD_ERR_OK){
                     $this->addError("imagen",ERROR_EMPTY_FILE);
-            }   
-            elseif ( !in_array ( pathinfo($archivo['name'], PATHINFO_EXTENSION), VALID_EXTENSION ) ) {/*pathinfo junto con PATHINFO_EXTENSION nos devuelve la extension de la imagen q es apuntado en $_FILES[name] y por ultimo con el in_array nos fijamos si esta dentro del array de formatos permitidos.*/
+                }   
+                elseif ( !in_array ( pathinfo($archivo['name'], PATHINFO_EXTENSION), VALID_EXTENSION )) {
                     $this->addError("imagen",ERROR_EXTENSION_FILE);
                 }
             }
-
+            
             if(empty($post["email"])){
                 $this->addError("email",ERROR_EMPTY_MAIL);
             } 
             elseif (!filter_var($post["email"], FILTER_VALIDATE_EMAIL)) {
                 $this->addError("email",ERROR_INVALID_MAIL);
-            } 
-            elseif (isRegister($post["email"],"email")) {
+            }
+            elseif ($db->isRegister($post["email"],"user_email")) {
                 $this->addError("email",ERROR_EXISTING_MAIL);
             }
-            
             if ( empty($post["password"]) || empty($post["rePassword"]) ) {
                 $this->addError("password",ERROR_EMPTY_PASSWORD);
             }

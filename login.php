@@ -1,27 +1,32 @@
 <?php
-  require_once 'DataSanitization.php';
-  require_once 'DataUpload.php';
-  require_once 'header.php';
-  if(isset($_COOKIE["user"])){
-    $user=getUserFromCookie();
-    if($user){
-      logIn($user["email"]);
-    }
-  }
-  if(isset($_SESSION["user"])){
-    header('location: profile.php');
-    exit;
-  }
-  $email = isset ($_POST['email']) ? trim ($_POST['email']) : '';
-  $rememberMe = isset ($_POST["session"]) ? $_POST["session"] : false;
+  require_once "autoload.php";
+
+  $db = new UsersMySql('Habitos_db');
+
+  $auth->isUserAlreadyLogged();
+
+  //OJO esta no sé si va y quizás está mal. 1- ¿existe usuario? 2- ¿usuario existe, pero pass es incorrecta?
+  //3- ¿usuario y pass son correctos?
+  //if($auth-> isLogged()){
+    //header('location: profile.php');
+    //else
+    //if (isset($_POST['rememberUser'])){
+    //  setcookie('rememberUser', $_POST['userEmail'], time() + 3600);
+    //}
+    //$auth-> logIn($user->getEmail());
+  //}
+
+  $form = new LoginFormValidator($_POST);
   if ($_POST) {
-    $errors = sanitizateAndValidateDataLogin($_POST);
-    if(!$errors){
-      if ($rememberMe == true){
-        saveCookie($_POST);
-        logIn($_POST);
+    $form->sanitizateAndValidateData($_POST, $db);
+    if(!$form->getAllErrors()){
+      if ($form->getRemenberMe()){
+        // dbug("tiene remember");exit;
+        $auth->saveCookie($_POST);
+        $auth->logIn($_POST);
       }else {
-        logIn($_POST);
+        // dbug("no tiene remember");exit;
+        $auth->logIn($_POST);
       }
     }
   }
@@ -38,26 +43,26 @@
             <div class="row">
               <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                  <input type="email" name="email" class="form-control input-lg <?= isset($errors['email']) ? 'is-invalid' : ''; ?>" placeholder="Email" value="<?= $email ?>">
-                  <?php if (isset($errors['email'])): ?>
+                  <input type="email" name="email" class="form-control input-lg <?= $form->fieldHasError("email") ? 'is-invalid' : ''; ?>" placeholder="Email" value="<?= $form->getEmail() ?>">
+                  <?php if ($form->fieldHasError("email")): ?>
                     <div class="invalid-feedback">
-                      <?= $errors['email'] ?>
+                      <?= $form->getFieldError("email"); ?>
                     </div>
                   <?php endif; ?>
                 </div>
               </div>
               <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                  <input type="password" name="password" class="form-control input-lg <?= isset($errors['password']) ? 'is-invalid' : ''; ?>" placeholder="Contraseña">
-                  <?php if (isset($errors['password'])): ?>
+                  <input type="password" name="password" class="form-control input-lg <?= $form->fieldHasError("password") ? 'is-invalid' : ''; ?>" placeholder="Contraseña">
+                  <?php if ($form->fieldHasError("email")): ?>
                     <div class="invalid-feedback">
-                      <?= $errors['password'] ?>
+                      <?= $form->getFieldError("password"); ?>
                     </div>
                   <?php endif; ?>
                 </div>
               </div>
               <div class="">
-                <label>Guardar Sesion<input type="checkbox" name="session" ></label>
+                <label>Guardar Sesion<input type="checkbox" name="rememberUser" ></label>
               </div>
             </div>
             <div class="row">
@@ -76,4 +81,4 @@
       </div>
     </div>
   </section>
-  <?php require_once 'footer.php'; ?>
+  <?php require_once 'includes/footer.php'; ?>

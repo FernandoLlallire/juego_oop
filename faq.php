@@ -2,7 +2,7 @@
 <br>
 <br>
 <br>
-  <?php require_once 'header.php'; ?>
+  <?php require_once 'autoload.php'; ?>
 <section class="container">
   <div class="row">
     <div class="accordion col-12" id="accordionExample">
@@ -97,4 +97,4 @@
 <br>
 <br>
 <br>
-  <?php require_once 'footer.php';?>
+  <?php require_once 'includes/footer.php';?>
