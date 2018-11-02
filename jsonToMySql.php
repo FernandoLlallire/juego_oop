@@ -34,8 +34,15 @@
     <title>jsonToMySql</title>
   </head>
   <body>
+    <br>
+    <br>
+    <br>
+    <br>
+    <!-- Pendiente de cambiar todo el estilo para que quede bien  -->
     <h1>Transferencia de Json a MySql</h1>
     <form action="jsonToMySql.php" method="post">
+      <br>
+      <br>
       <button type="submit" name="transferir">Transferir db!</button>
     </form>
   </body>

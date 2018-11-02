@@ -31,10 +31,13 @@
         "Preguntas frecuentes" => "faq.php",
         "Perfil" => "profile.php",
         "LogOut" => "logout.php",
+        "Migrate Table to MySql"=> "jsonToMySql.php",
       ];
       foreach ($navBar as $opcion => $url) {
         if ( (($opcion == "Registro" || $opcion == "Login") && !empty($_SESSION))
-        || (($opcion == "Perfil" || $opcion == "LogOut") && empty($_SESSION)) ) {
+              || (($opcion == "Perfil" || $opcion == "LogOut") && empty($_SESSION))
+              || ($opcion == "Migrate Table to MySql" && !$userModel->isEmpty())
+            ) {
           continue;
         }
           echo "<li class=\"nav-item active\" >";
