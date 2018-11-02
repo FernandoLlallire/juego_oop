@@ -1,11 +1,13 @@
 <?php
-// if($_POST){
-//   $json=file_get_contents("db\\db.json");
-//   $obj=json_decode($json);
-//   var_dump($obj);//Aca va la funcion de la base de datos a la cual le pasamos el objeto de json
-// }
  require_once "autoload.php";
-// ?>
+  $field="";
+  $value='fer2';
+  $stmt = $userModel->getConnection()->prepare("SELECT * FROM users where userName=:value");
+  $stmt -> bindValue(":value",$value,PDO::PARAM_STR);
+  $stmt->execute();
+  dbug($stmt);
+dbug($stmt->fetchall(PDO::FETCH_OBJ));
+ ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -16,10 +18,6 @@
     <h1>Transferencia de Json a MySql</h1>
     <h6><?php var_dump($_SESSION); ?></h6>
     <h6><?php var_dump($_COOKIE); ?></h6>
-    <h4><?php dbug($userModel->getAllUsers()); ?></h4>
-    <?php foreach ($userModel->getAllUsers() as $user): ?>
-      <?php dbug($user->user_email); ?>
-    <?php endforeach; ?>
     <form action="jsonToMySql.php" method="post">
       <button type="submit" name="transferir">Transferir db!</button>
     </form>

@@ -11,8 +11,8 @@
     <title></title>
   </head>
   <body>
-    <!-- <div class="container"> esto lo puse por el tema del footer? style="background-color: #4D9DE0";-->
-<nav class="navbar navbar-light fixed-top navbar-expand-md"; >
+    <!-- <div class="container"> esto lo puse por el tema del footer? -->
+<nav class="navbar navbar-light fixed-top navbar-expand-md"; style="background-color: #4D9DE0";>
    <a class="navbar-brand mr-auto m" href="index.php">
      <!-- <img src="images/if_sloth_3406421.png" width="30" height="30" alt=""> Aca tendria que ir el logo-->
      BrandName

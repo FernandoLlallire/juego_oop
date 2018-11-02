@@ -1,16 +1,17 @@
 <?php
 
 require_once "autoload.php";
+// dbug($_SESSION);dbug($_COOKIE);exit;
 if(isset($_COOKIE["user"])){
-  $user=$auth->getUserFromCookie();
-  $_SESSION["user"]=$user;
+  $user=$auth->getUserFromCookie($userModel);
+  $_SESSION["user"]=$user->email;
 }
 
 if(!isset($_SESSION["user"])){
     header('location: index.php');
     exit;
 }else {
-  if(!isSessionValid()){
+  if(!$auth->isSessionValid($userModel)){
     header('location: logout.php');
     exit;
   }

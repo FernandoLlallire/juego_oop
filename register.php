@@ -1,17 +1,17 @@
 <?php
 require_once "autoload.php";
 
-  $auth->isUserAlreadyLogged();
+  $auth->isUserAlreadyLogged($userModel);
 
-  $form = new RegisterFormValidator($_POST,$_FILES);
+  $form = new RegisterFormValidator($_POST,$_FILES,$userModel);
 //    $theUser = db->getUserByEmail($_SESSION['userEmail']);
 if ($_POST) {
-  $form->sanitizateAndValidateData($_POST, $_FILES);
+  $form->sanitizateAndValidateData();
   if (!$form->getAllErrors()){
-    $_POST["avatar"] = $_FILES["imagen"];//$_FILES es un array donde estan todos los archivos que subamos, en este caso mandamos todos los datos de nuestra imagen (nombre puesto en el label del input)
-    // SaveImage::uploadImage($_FILES["imagen"]);
+    $_POST["avatar"] = $_FILES["avatar"];//$_FILES es un array donde estan todos los archivos que subamos, en este caso mandamos todos los datos de nuestra avatar (nombre puesto en el label del input)
+    // SaveImage::uploadImage($_FILES["avatar"]);
     /*dbclass saveUser*/
-    saveUser($_POST);
+    $userModel->saveUser($_POST);
     if ($form->getRememberMe() == true){
       $auth->saveCookie($_POST);
       $auth->logIn($_POST);
@@ -111,7 +111,7 @@ if ($_POST) {
           </div>
           <div class="">
             <label for="file">Archivo</label>
-            <input type="file" name="imagen" ><br>
+            <input type="file" name="avatar" ><br>
           </div>
           <div class="">
             <label>Guardar Sesion<input type="checkbox" name="rememberUser" ></label>

@@ -3,7 +3,7 @@ require_once "autoload.php";
 
   if($auth->isLogged()){
     /*dbclass getUserbyEmail*/
-    $theUser = getUserbyEmail($_SESSION['userEmail']);
+    $theUser = getUserbyEmail($_SESSION['user']);
   }
   ?>
   <br>

@@ -1,10 +1,9 @@
 <?php
-
-  abstract class SaveImage {
+  class SaveImage {
 
     /*SaveImage nos permite guardar las fotos q subamos para el avatar. leer https://stackoverflow.com/questions/30358737/php-file-upload-error-tmp-name-is-empty por la limitacion del tamaño del archivo, por que si el archivo es muy grande no genera el tmp_name!!!*/
       //no sé si debería agregarle el static
-      public function SaveImage($file){
+      public static function save($file){
         $imgName = $file['name'];
         $ext = pathinfo($imgName, PATHINFO_EXTENSION);
         $temp_direction = $file['tmp_name'];
